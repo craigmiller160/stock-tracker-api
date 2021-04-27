@@ -5,3 +5,6 @@ yalc.lock
 yarn-error.log
 .idea
 *.iml
+dist
+
+.env.private

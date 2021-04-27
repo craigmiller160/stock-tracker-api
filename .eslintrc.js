@@ -1,24 +1,53 @@
+/* eslint-disable prettier/prettier */
+const path = require('path');
+
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: 'tsconfig.json',
-    sourceType: 'module',
-  },
-  plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
   root: true,
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    }
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
   env: {
-    node: true,
-    jest: true,
+    browser: true,
+    amd: true,
+    node: true
   },
-  ignorePatterns: ['.eslintrc.js'],
+  extends: [
+    'eslint:recommended',
+    'plugin:prettier/recommended'
+  ],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
+    'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+    'no-console': [
+      'error',
+      {
+        allow: ['error']
+      }
+    ]
   },
+  overrides: [
+    {
+      files: ['**/*.ts?(x)'],
+      parser: '@typescript-eslint/parser',
+      extends: ['plugin:@typescript-eslint/recommended'],
+      settings: {
+        'import/resolver': {
+          typescript: {
+            project: path.resolve(process.cwd(), 'tsconfig.json')
+          }
+        }
+      },
+      rules: {
+        '@typescript-eslint/no-unused-vars': 'error'
+      }
+    }
+  ]
 };
