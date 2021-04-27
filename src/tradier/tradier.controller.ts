@@ -7,7 +7,6 @@ import { TradierService } from './tradier.service';
 export class TradierController {
 	constructor(private tradierService: TradierService) {}
 
-
 	@Get('/quote/:symbol')
 	getStockQuote(@Param('symbol') symbol: string): Observable<Quote> {
 		return this.tradierService.getQuote(symbol);

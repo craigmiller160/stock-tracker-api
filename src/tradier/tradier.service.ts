@@ -9,24 +9,27 @@ import { Observable } from 'rxjs';
 
 @Injectable
 export class TradierService {
-    constructor(private readonly configService: ConfigService,
-                private readonly httpService: HttpService) {}
+	constructor(
+		private readonly configService: ConfigService,
+		private readonly httpService: HttpService
+	) {}
 
-    getQuote(symbol: string): Observable<Quote> {
-        const query = qs.stringify({ symbols: symbol });
-        return this.httpService.get<QuotesWrapper>(`/markets/quotes?${query}`, this.getConfig())
-            .pipe(
-                map((res) => res.data.quotes.quote)
-            );
-    }
+	getQuote(symbol: string): Observable<Quote> {
+		const query = qs.stringify({ symbols: symbol });
+		return this.httpService
+			.get<QuotesWrapper>(`/markets/quotes?${query}`, this.getConfig())
+			.pipe(map((res) => res.data.quotes.quote));
+	}
 
-    private getConfig(): AxiosRequestConfig {
-        return {
-            baseURL: this.configService.get<string>(TRADIER_BASE_URL),
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Bearer ${this.configService.get<string>(TRADIER_API_KEY)}`
-            }
-        };
-    }
+	private getConfig(): AxiosRequestConfig {
+		return {
+			baseURL: this.configService.get<string>(TRADIER_BASE_URL),
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${this.configService.get<string>(
+					TRADIER_API_KEY
+				)}`
+			}
+		};
+	}
 }
