@@ -2,6 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Quote } from './models/quotes';
 import { TradierService } from './tradier.service';
+import { HistoryDay } from './models/historyQuotes';
 
 @Controller('/tradier')
 export class TradierController {
@@ -12,8 +13,9 @@ export class TradierController {
 		return this.tradierService.getQuote(symbol);
 	}
 
-	@Get('/quote/history/:symbol')
-	getStockHistoryQuote(@Param('symbol') symbol: string, date: string) {
-		// TODO finish this
+	@Get('/quote/history/:symbol/:date')
+	getStockHistoryQuote(@Param('symbol') symbol: string,
+						 @Param('date') date: string): Observable<HistoryDay> {
+		return this.tradierService.getHistoryQuote(symbol, date);
 	}
 }
