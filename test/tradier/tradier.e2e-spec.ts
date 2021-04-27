@@ -28,14 +28,18 @@ describe('TradierController (e2e)', () => {
 		await app.init();
 	});
 
-	it('GET /tradier/quote/:symbol', () => {
+	it('GET /tradier/quote/:symbol', async () => {
 		const spy = jest.spyOn(httpService, 'get');
 		spy.mockImplementationOnce(() => of(createResponse(quotes)));
 
-		return request(app.getHttpServer())
+		await request(app.getHttpServer())
 			.get('/tradier/quote/AAPL')
-			.expect(200)
-			.expect(quotes.quotes.quote);
+			.expect(200, quotes.quotes.quote);
+
+		expect(spy).toHaveBeenCalledWith(
+			'/markets/quotes?symbols=AAPL',
+			expect.any(Object)
+		);
 	});
 
 	it('GET /tradier/quote/history/:symbol/:date', () => {
