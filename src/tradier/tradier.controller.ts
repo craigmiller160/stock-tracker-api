@@ -1,14 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller('/tradier')
 export class TradierController {
-	@Get('/quote')
-	getStockQuote(symbol: string) {
+	@Get('/quote/:symbol')
+	getStockQuote(@Param('symbol') symbol: string) {
 		// TODO finish this
 	}
 
-	@Get('/quote/history')
-	getStockHistoryQuote(symbol: string, date: string) {
+	@Get('/quote/history/:symbol')
+	getStockHistoryQuote(@Param('symbol') symbol: string, date: string) {
 		// TODO finish this
 	}
 }
