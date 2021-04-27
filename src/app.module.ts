@@ -7,7 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
 	imports: [
 		ConfigModule.forRoot({
-			envFilePath: ['.env', '.env.private']
+			envFilePath: ['.env', '.env.private'],
+			isGlobal: true
 		})
 	],
 	controllers: [AppController],
