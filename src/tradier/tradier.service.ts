@@ -1,7 +1,7 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import { ConfigService } from '@nestjs/config';
-import qs from 'qs';
+import { stringify } from 'qs';
 import { TRADIER_API_KEY, TRADIER_BASE_URL } from '../config/keys';
 import { Quote, QuotesWrapper } from './models/quotes';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class TradierService {
 	) {}
 
 	getQuote(symbol: string): Observable<Quote> {
-		const query = qs.stringify({ symbols: symbol });
+		const query = stringify({ symbols: symbol });
 		return this.httpService
 			.get<QuotesWrapper>(`/markets/quotes?${query}`, this.getConfig())
 			.pipe(map((res) => res.data.quotes.quote));
