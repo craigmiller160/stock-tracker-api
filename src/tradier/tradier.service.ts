@@ -29,7 +29,12 @@ export class TradierService {
 	}
 
 	getHistoryQuote(symbol: string, date: string): Observable<HistoryDay> {
-		const query = stringify({ symbol, interval: 'monthly', start: date, end: date });
+		const query = stringify({
+			symbol,
+			interval: 'monthly',
+			start: date,
+			end: date
+		});
 		return this.httpService
 			.get<HistoryWrapper>(`/markets/history?${query}`, this.getConfig())
 			.pipe(map((res) => res.data.history.day));

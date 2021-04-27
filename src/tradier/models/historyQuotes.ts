@@ -1,16 +1,16 @@
 export interface HistoryDay {
-    date: string;
-    open: number;
-    high: number;
-    low: number;
-    close: number;
-    volume: number;
+	date: string;
+	open: number;
+	high: number;
+	low: number;
+	close: number;
+	volume: number;
 }
 
 export interface History {
-    day: HistoryDay;
+	day: HistoryDay;
 }
 
 export interface HistoryWrapper {
-    history: History;
+	history: History;
 }
