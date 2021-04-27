@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { TRADIER_API_KEY, TRADIER_BASE_URL } from '../config/keys';
+import { Quote } from './models/quotes';
 
 @Injectable
 class TradierService {
@@ -14,5 +15,9 @@ class TradierService {
                 Authorization: `Bearer ${configService.get<string>(TRADIER_API_KEY)}`
             }
         });
+    }
+
+    getQuote(symbol: string): Quote {
+        // TODO finish this
     }
 }
