@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Quote } from './models/quotes';
 import { TradierService } from './tradier.service';
 import { HistoryDay } from './models/historyQuotes';
+import { TodayData } from './models/todayTicker';
 
 @Controller('/tradier')
 export class TradierController {
@@ -19,8 +20,8 @@ export class TradierController {
 		return this.tradierService.getHistoryQuote(symbol, date);
 	}
 
-	@Get('/timesales/:symbol')
-	getTimeAndSales(@Param('symbol') symbol: string) {
-		// TODO finish this
+	@Get('/today/:symbol')
+	getStockTodayTicker(@Param('symbol') symbol: string): Observable<TodayData[]> {
+		return this.tradierService.getTodayTicket(symbol);
 	}
 }

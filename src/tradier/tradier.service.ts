@@ -6,7 +6,13 @@ import { TRADIER_API_KEY, TRADIER_BASE_URL } from '../config/keys';
 import { Quote, QuotesWrapper } from './models/quotes';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { format } from 'date-fns';
 import { HistoryDay, HistoryWrapper } from './models/historyQuotes';
+import { SeriesWrapper, TodayData } from './models/todayTicker';
+
+const DATE_FORMAT = 'yyyy-MM-dd';
+const START_TIME = '09:30';
+const END_TIME = '16:00';
 
 @Injectable()
 export class TradierService {
@@ -29,8 +35,17 @@ export class TradierService {
 			.pipe(map((res) => res.data.history.day));
 	}
 
-	getTimeAndSales(symbol: string) {
-		// TODO finish this
+	getTodayTicket(symbol: string): Observable<TodayData[]> {
+		const todayString = format(new Date(), DATE_FORMAT);
+		const query = stringify({
+			symbol,
+			interval: '1min',
+			start: `${todayString} ${START_TIME}`,
+			end: `${todayString} ${END_TIME}`
+		});
+		return this.httpService
+			.get<SeriesWrapper>(`/markets/timesales?${query}`, this.getConfig())
+			.pipe(map((res) => res.data.series.data));
 	}
 
 	private getConfig(): AxiosRequestConfig {
