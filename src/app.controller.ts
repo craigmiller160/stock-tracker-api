@@ -4,18 +4,18 @@ import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private readonly configService: ConfigService,
-  ) {}
+	constructor(
+		private readonly appService: AppService,
+		private readonly configService: ConfigService
+	) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+	@Get()
+	getHello(): string {
+		return this.appService.getHello();
+	}
 
-  @Get('/propTest')
-  propTest(): string {
-    return this.configService.get<string>('TRADIER_API_KEY');
-  }
+	@Get('/propTest')
+	propTest(): string {
+		return this.configService.get<string>('TRADIER_API_KEY');
+	}
 }
