@@ -5,13 +5,14 @@ import qs from 'qs';
 import { TRADIER_API_KEY, TRADIER_BASE_URL } from '../config/keys';
 import { Quote, QuotesWrapper } from './models/quotes';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable
-class TradierService {
+export class TradierService {
     constructor(private readonly configService: ConfigService,
                 private readonly httpService: HttpService) {}
 
-    getQuote(symbol: string): Quote {
+    getQuote(symbol: string): Observable<Quote> {
         const query = qs.stringify({ symbols: symbol });
         return this.httpService.get<QuotesWrapper>(`/markets/quotes?${query}`, this.getConfig())
             .pipe(

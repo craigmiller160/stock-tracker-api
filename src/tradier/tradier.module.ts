@@ -1,5 +1,6 @@
 import { HttpModule, Module } from '@nestjs/common';
 import { TradierController } from './tradier.controller';
+import { TradierService } from './tradier.service';
 
 @Module({
 	imports: [
@@ -8,6 +9,7 @@ import { TradierController } from './tradier.controller';
 			maxRedirects: 5
 		})
 	],
-	controllers: [TradierController]
+	controllers: [TradierController],
+	providers: [TradierService]
 })
 export class TradierModule {}
