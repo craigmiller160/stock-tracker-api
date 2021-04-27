@@ -6,12 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 // TODO AppController & AppService can go away
 @Module({
   imports: [
-      ConfigModule.forRoot({
-        envFilePath: [
-            '.env',
-            '.env.private'
-        ]
-      })
+    ConfigModule.forRoot({
+      envFilePath: ['.env', '.env.private'],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
