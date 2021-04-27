@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import qs from 'qs';
 import { TRADIER_API_KEY, TRADIER_BASE_URL } from '../config/keys';
 import { Quote, QuotesWrapper } from './models/quotes';
+import { map } from 'rxjs/operators';
 
 @Injectable
 class TradierService {
@@ -13,7 +14,9 @@ class TradierService {
     getQuote(symbol: string): Quote {
         const query = qs.stringify({ symbols: symbol });
         return this.httpService.get<QuotesWrapper>(`/markets/quotes?${query}`, this.getConfig())
-            .subscribe((res) => res.data.quotes.quote);
+            .pipe(
+                map((res) => res.data.quotes.quote)
+            );
     }
 
     private getConfig(): AxiosRequestConfig {
