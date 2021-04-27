@@ -18,4 +18,9 @@ export class TradierController {
 						 @Param('date') date: string): Observable<HistoryDay> {
 		return this.tradierService.getHistoryQuote(symbol, date);
 	}
+
+	@Get('/timesales/:symbol')
+	getTimeAndSales(@Param('symbol') symbol: string) {
+		// TODO finish this
+	}
 }

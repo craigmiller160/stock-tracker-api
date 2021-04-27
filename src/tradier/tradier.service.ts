@@ -29,6 +29,10 @@ export class TradierService {
 			.pipe(map((res) => res.data.history.day));
 	}
 
+	getTimeAndSales(symbol: string) {
+		// TODO finish this
+	}
+
 	private getConfig(): AxiosRequestConfig {
 		return {
 			baseURL: this.configService.get<string>(TRADIER_BASE_URL),
