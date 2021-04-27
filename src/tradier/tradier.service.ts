@@ -7,7 +7,7 @@ import { Quote, QuotesWrapper } from './models/quotes';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-@Injectable
+@Injectable()
 export class TradierService {
 	constructor(
 		private readonly configService: ConfigService,
