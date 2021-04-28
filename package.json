@@ -83,7 +83,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo 'Working'"
+      "pre-commit": "echo 'Working 2'"
     }
   }
 }
