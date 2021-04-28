@@ -1,6 +1,8 @@
 import { Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from '../guards/LocalAuthGuard';
 import { User } from '../user/model/user';
+import { AuthService } from './auth.service';
+import { TokenResponse } from './model/jwt';
 
 interface RequestWithUser extends Request {
 	user: User;
@@ -8,10 +10,12 @@ interface RequestWithUser extends Request {
 
 @Controller('/auth')
 export class AuthController {
+	constructor(private readonly authService: AuthService) {}
+
 	// TODO learn guards
 	@UseGuards(LocalAuthGuard)
 	@Post('/login')
-	login(@Request() req: RequestWithUser): User {
-		return req.user;
+	login(@Request() req: RequestWithUser): TokenResponse {
+		return this.authService.login(req.user);
 	}
 }
