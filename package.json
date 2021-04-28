@@ -82,6 +82,8 @@
     "testEnvironment": "node"
   },
   "husky": {
-    "pre-commit": "yarn lint"
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   }
 }
