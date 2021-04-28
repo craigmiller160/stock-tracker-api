@@ -27,6 +27,7 @@
     "@nestjs/jwt": "^7.2.0",
     "@nestjs/passport": "^7.1.5",
     "@nestjs/platform-express": "^7.6.15",
+    "atob": "^2.1.2",
     "axios": "^0.21.1",
     "date-fns": "^2.21.1",
     "passport": "^0.4.1",
