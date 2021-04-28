@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TradierModule } from './tradier/tradier.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
 	imports: [
@@ -8,7 +9,8 @@ import { TradierModule } from './tradier/tradier.module';
 			envFilePath: ['.env', '.env.private'],
 			isGlobal: true
 		}),
-		TradierModule
+		TradierModule,
+		AuthModule
 	]
 })
 export class AppModule {}
