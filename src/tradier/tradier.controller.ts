@@ -4,19 +4,16 @@ import { Quote } from './models/quotes';
 import { TradierService } from './tradier.service';
 import { HistoryDay } from './models/historyQuotes';
 import { TodayData } from './models/todayTicker';
-import { JwtAuthGuard } from '../guards/JwtAuthGuard';
 
 @Controller('/tradier')
 export class TradierController {
 	constructor(private tradierService: TradierService) {}
 
-	@UseGuards(JwtAuthGuard)
 	@Get('/quote/:symbol')
 	getStockQuote(@Param('symbol') symbol: string): Observable<Quote> {
 		return this.tradierService.getQuote(symbol);
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@Get('/quote/history/:symbol/:date')
 	getStockHistoryQuote(
 		@Param('symbol') symbol: string,
@@ -25,7 +22,7 @@ export class TradierController {
 		return this.tradierService.getHistoryQuote(symbol, date);
 	}
 
-	@UseGuards(JwtAuthGuard)
+	// @UseGuards(JwtAuthGuard)
 	@Get('/today/:symbol')
 	getStockTodayTicker(
 		@Param('symbol') symbol: string
