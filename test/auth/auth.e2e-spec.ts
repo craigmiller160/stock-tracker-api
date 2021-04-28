@@ -1,6 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../src/app.module';
 import { INestApplication } from '@nestjs/common';
+import request from 'supertest';
+import { User } from '../../src/user/model/user';
+
+interface AuthPayload {
+	userName: string;
+	password: string;
+}
 
 describe('AuthController (e2e)', () => {
 	let app: INestApplication;
@@ -15,10 +22,28 @@ describe('AuthController (e2e)', () => {
 	});
 
 	it('POST /auth/login (bad credentials)', () => {
-		throw new Error();
+		const payload: AuthPayload = {
+			userName: 'abc',
+			password: 'def'
+		};
+		return request(app.getHttpServer())
+			.post('/auth/login')
+			.send(payload)
+			.expect(401);
 	});
 
 	it('POST /auth/login (good credentials)', () => {
-		throw new Error();
+		const payload: AuthPayload = {
+			userName: 'john',
+			password: 'changeme'
+		};
+		const expected: User = {
+			userId: 1,
+			userName: 'john'
+		};
+		return request(app.getHttpServer())
+			.post('/auth/login')
+			.send(payload)
+			.expect(200, expected);
 	});
 });
