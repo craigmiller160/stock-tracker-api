@@ -44,6 +44,6 @@ describe('AuthController (e2e)', () => {
 		return request(app.getHttpServer())
 			.post('/auth/login')
 			.send(payload)
-			.expect(200, expected);
+			.expect(201, expected);
 	});
 });

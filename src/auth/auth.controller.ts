@@ -8,6 +8,8 @@ interface RequestWithUser extends Request {
 
 @Controller('/auth')
 export class AuthController {
+
+	// TODO learn guards
 	@UseGuards(LocalAuthGuard)
 	@Post('/login')
 	login(@Request() req: RequestWithUser): User {
