@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Quote } from './models/quotes';
 import { TradierService } from './tradier.service';
@@ -22,6 +22,7 @@ export class TradierController {
 		return this.tradierService.getHistoryQuote(symbol, date);
 	}
 
+	// @UseGuards(JwtAuthGuard)
 	@Get('/today/:symbol')
 	getStockTodayTicker(
 		@Param('symbol') symbol: string
