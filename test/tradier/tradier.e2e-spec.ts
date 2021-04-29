@@ -8,6 +8,7 @@ import quotes from './__data__/quotes.json';
 import historyQuotes from './__data__/historyQuotes.json';
 import today from './__data__/today.json';
 import { format } from 'date-fns';
+import { AuthService } from '../../src/auth/auth.service';
 
 const createResponse = <T>(data: T): AxiosResponse<T> => ({
 	data,
@@ -20,6 +21,7 @@ const createResponse = <T>(data: T): AxiosResponse<T> => ({
 describe('TradierController (e2e)', () => {
 	let app: INestApplication;
 	let httpService: HttpService;
+	let token: string;
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -28,6 +30,11 @@ describe('TradierController (e2e)', () => {
 
 		app = moduleFixture.createNestApplication();
 		httpService = app.get<HttpService>(HttpService);
+		const authService = app.get<AuthService>(AuthService);
+		token = authService.login({
+			userName: 'user',
+			userId: 1
+		}).access_token;
 		await app.init();
 	});
 
@@ -37,6 +44,7 @@ describe('TradierController (e2e)', () => {
 
 		await request(app.getHttpServer())
 			.get('/tradier/quote/AAPL')
+			.set('Authorization', `Bearer ${token}`)
 			.expect(200, quotes.quotes.quote);
 
 		expect(spy).toHaveBeenCalledWith(
@@ -51,6 +59,7 @@ describe('TradierController (e2e)', () => {
 
 		await request(app.getHttpServer())
 			.get('/tradier/quote/history/AAPL/2021-04-27')
+			.set('Authorization', `Bearer ${token}`)
 			.expect(200, historyQuotes.history.day);
 
 		expect(spy).toHaveBeenCalledWith(
@@ -65,6 +74,7 @@ describe('TradierController (e2e)', () => {
 
 		await request(app.getHttpServer())
 			.get('/tradier/today/AAPL/')
+			.set('Authorization', `Bearer ${token}`)
 			.expect(200, today.series.data);
 
 		const todayString = format(new Date(), 'yyyy-MM-dd');
