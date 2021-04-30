@@ -50,6 +50,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 			this.configService.get<string>(CLIENT_KEY) !== payload.clientKey ||
 			this.configService.get<string>(CLIENT_NAME) !== payload.clientName
 		) {
+			this.logger.error('Token validation failed');
 			throw new UnauthorizedException();
 		}
 
