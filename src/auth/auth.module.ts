@@ -12,7 +12,8 @@ import * as https from 'https';
 
 @Module({
 	imports: [
-		HttpModule.register({ // TODO find a way to not have to do this every module
+		HttpModule.register({
+			// TODO find a way to not have to do this every module
 			timeout: 10000,
 			maxRedirects: 5,
 			httpsAgent: new https.Agent({

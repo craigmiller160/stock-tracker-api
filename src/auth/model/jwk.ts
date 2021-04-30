@@ -1,12 +1,5 @@
-export interface Jwk {
-    kty: string;
-    e: string;
-    use: string;
-    kid: string;
-    alg: string;
-    n: string;
-}
+import { JWK } from 'jwk-to-pem';
 
 export interface JwkSet {
-    keys: Jwk[];
+	keys: JWK[];
 }
