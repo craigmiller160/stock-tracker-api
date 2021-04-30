@@ -13,7 +13,7 @@ interface RequestWithUser extends Request {
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
 
-	// TODO learn guards
+	// TODO delete this
 	@Insecure()
 	@UseGuards(LocalAuthGuard)
 	@Post('/login')
