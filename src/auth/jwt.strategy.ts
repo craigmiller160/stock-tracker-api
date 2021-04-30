@@ -5,7 +5,7 @@ import { User } from '../user/model/user';
 import { Injectable, Logger } from '@nestjs/common';
 import { Request } from 'express';
 import { JwkService } from './jwk.service';
-import { ajaxErrorHandler } from '../util/ajaxErrorHandler';
+import { ajaxErrorHandler } from '../http/ajaxErrorHandler';
 
 type doneFn = (err: any, secretOrKey?: string | Buffer) => void;
 

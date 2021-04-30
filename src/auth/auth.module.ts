@@ -8,16 +8,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { JwkService } from './jwk.service';
 import { Agent } from 'https';
+import { HttpModuleConfigService } from '../http/HttpModuleConfigService';
 
 @Module({
 	imports: [
-		HttpModule.register({
-			// TODO find a way to not have to do this every module
-			timeout: 10000,
-			maxRedirects: 5,
-			httpsAgent: new Agent({
-				rejectUnauthorized: false
-			})
+		HttpModule.registerAsync({
+			useClass: HttpModuleConfigService
 		}),
 		UserModule,
 		PassportModule,

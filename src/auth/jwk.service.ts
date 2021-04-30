@@ -10,7 +10,7 @@ import { AxiosResponse } from 'axios';
 import { JwkSet } from './model/jwk';
 import jwkToPem from 'jwk-to-pem';
 import { map } from 'rxjs/operators';
-import { ajaxErrorHandler } from '../util/ajaxErrorHandler';
+import { ajaxErrorHandler } from '../http/ajaxErrorHandler';
 import { ConfigService } from '@nestjs/config';
 import { AUTH_SERVER_HOST } from '../config/keys';
 
