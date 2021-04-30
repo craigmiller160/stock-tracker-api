@@ -3,7 +3,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { jwtConstants } from './constants';
 import { Claims } from './model/jwt';
 import { User } from '../user/model/user';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Request } from 'express';
 import { JwkService } from './jwk.service';
 
@@ -13,6 +13,8 @@ type doneFn = (err: any, secretOrKey?: string | Buffer) => void;
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
+	private readonly logger = new Logger(JwtStrategy.name);
+
 	constructor(private readonly jwkService: JwkService) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -26,11 +28,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 				jwkService.key
 					.subscribe({
 						next: (value) => {
-							console.log('InNext', value); // TODO delete this
+							this.logger.log('InNext', value); // TODO delete this
 							done(null, value);
 						},
 						error: (error) => {
-							console.log('InError', error); // TODO delete this
+							this.logger.error('InError', error); // TODO delete this
 							done(error);
 						}
 					})
