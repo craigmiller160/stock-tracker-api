@@ -1,9 +1,9 @@
 import { Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { LocalAuthGuard } from '../guards/LocalAuthGuard';
+import { LocalAuthGuard } from '../../guards/LocalAuthGuard';
 import { User } from '../user/model/user';
 import { AuthService } from './auth.service';
 import { TokenResponse } from './model/jwt';
-import { Insecure } from '../guards/Insecure';
+import { Insecure } from '../../guards/Insecure';
 
 interface RequestWithUser extends Request {
 	user: User;
