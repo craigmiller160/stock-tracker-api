@@ -4,6 +4,9 @@ import { jwtConstants } from './constants';
 import { Claims } from './model/jwt';
 import { User } from '../user/model/user';
 import { Injectable } from '@nestjs/common';
+import { Request } from 'express';
+
+type doneFn = (err: any, secretOrKey?: string | Buffer) => void;
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -11,7 +14,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			ignoreExpiration: false,
-			secretOrKey: jwtConstants.secret
+			secretOrKeyProvider: (req: Request, rawJwt: any, done: doneFn) => {
+				done(null, jwtConstants.secret);
+			}
 		});
 	}
 
