@@ -6,6 +6,7 @@ import { User } from '../user/model/user';
 import { Injectable, Logger } from '@nestjs/common';
 import { Request } from 'express';
 import { JwkService } from './jwk.service';
+import { ajaxErrorHandler } from '../util/ajaxErrorHandler';
 
 type doneFn = (err: any, secretOrKey?: string | Buffer) => void;
 
@@ -24,15 +25,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 				rawJwt: string,
 				done: doneFn
 			) => {
-				console.log('InCallback'); // TODO delete this
 				jwkService.key
 					.subscribe({
-						next: (value) => {
-							this.logger.log('InNext', value); // TODO delete this
-							done(null, value);
-						},
-						error: (error) => {
-							this.logger.error('InError', error); // TODO delete this
+						next: (value: string) => done(null, value),
+						error: (error: Error) => {
+							this.logger.error(
+								'Error getting JWK key',
+								ajaxErrorHandler(error)
+							);
 							done(error);
 						}
 					})
