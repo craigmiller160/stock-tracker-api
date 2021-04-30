@@ -7,7 +7,7 @@ import { HttpModuleConfigService } from '../../http/HttpModuleConfigService';
 	imports: [
 		HttpModule.registerAsync({
 			useClass: HttpModuleConfigService
-		}),
+		})
 	],
 	controllers: [TradierController],
 	providers: [TradierService]
