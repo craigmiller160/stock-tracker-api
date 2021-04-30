@@ -5,10 +5,9 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.strategy';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { JwkService } from './jwk.service';
-import * as https from 'https';
+import { Agent } from 'https';
 
 @Module({
 	imports: [
@@ -16,7 +15,7 @@ import * as https from 'https';
 			// TODO find a way to not have to do this every module
 			timeout: 10000,
 			maxRedirects: 5,
-			httpsAgent: new https.Agent({
+			httpsAgent: new Agent({
 				rejectUnauthorized: false
 			})
 		}),
