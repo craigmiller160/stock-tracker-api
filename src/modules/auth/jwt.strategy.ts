@@ -6,6 +6,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Request } from 'express';
 import { JwkService } from './jwk.service';
 import { ajaxErrorHandler } from '../../http/ajaxErrorHandler';
+import { ConfigService } from '@nestjs/config';
+import { CLIENT_KEY } from '../../config/keys';
 
 type doneFn = (err: any, secretOrKey?: string | Buffer) => void;
 
@@ -15,7 +17,7 @@ type doneFn = (err: any, secretOrKey?: string | Buffer) => void;
 export class JwtStrategy extends PassportStrategy(Strategy) {
 	private readonly logger = new Logger(JwtStrategy.name);
 
-	constructor(private readonly jwkService: JwkService) {
+	constructor(private readonly jwkService: JwkService, private readonly configService: ConfigService) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			ignoreExpiration: false,
@@ -41,6 +43,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 	}
 
 	validate(payload: Claims): User {
+		console.log('Validating', payload); // TODO delete this
 		return {
 			userId: payload.sub,
 			userName: payload.userName
