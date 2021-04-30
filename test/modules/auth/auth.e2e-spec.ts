@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from '../../src/app.module';
+import { AppModule } from '../../../src/app.module';
 import { INestApplication } from '@nestjs/common';
 import request, { Response } from 'supertest';
 import atob from 'atob';

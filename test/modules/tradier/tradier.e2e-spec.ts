@@ -1,6 +1,6 @@
 import { HttpService, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from '../../src/app.module';
+import { AppModule } from '../../../src/app.module';
 import request from 'supertest';
 import { AxiosResponse } from 'axios';
 import { of } from 'rxjs';
