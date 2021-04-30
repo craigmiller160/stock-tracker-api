@@ -5,12 +5,13 @@ import { Claims } from './model/jwt';
 import { User } from '../user/model/user';
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
+import { JwkService } from './jwk.service';
 
 type doneFn = (err: any, secretOrKey?: string | Buffer) => void;
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-	constructor() {
+	constructor(private readonly jwkService: JwkService) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			ignoreExpiration: false,
@@ -19,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 				rawJwt: string,
 				done: doneFn
 			) => {
-				done(null, jwtConstants.secret);
+				done(null, jwkService.key.getValue());
 			}
 		});
 	}

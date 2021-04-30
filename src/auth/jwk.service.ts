@@ -16,7 +16,7 @@ const jwkUrl = 'https://localhost:7003/jwk'; // TODO add to configuration
 
 @Injectable()
 export class JwkService implements OnModuleInit, OnModuleDestroy {
-	key = new BehaviorSubject<string>('');
+	readonly key = new BehaviorSubject<string>('');
 	private subscription: Subscription;
 
 	constructor(private httpService: HttpService) {}
