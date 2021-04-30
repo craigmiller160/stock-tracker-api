@@ -1,0 +1,4 @@
+Dev Settings
+
+Key: 96fb73dc-ae88-4056-a349-6e7488f7f6c4
+Secret: 5c9632f1-6424-4c41-8f0d-e6131bb47fb0
