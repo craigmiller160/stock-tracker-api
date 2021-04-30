@@ -1,19 +1,12 @@
-import {
-	HttpService,
-	Injectable,
-	Logger,
-	OnModuleDestroy,
-	OnModuleInit
-} from '@nestjs/common';
-import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
+import { HttpService, Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { JwkSet } from './model/jwk';
 import jwkToPem from 'jwk-to-pem';
 import { map } from 'rxjs/operators';
+import { ajaxErrorHandler } from '../util/ajaxErrorHandler';
 
 const jwkUrl = 'https://localhost:7003/jwk'; // TODO add to configuration
-
-// TODO need error handling that kills whole app
 
 @Injectable()
 export class JwkService implements OnModuleInit, OnModuleDestroy {
@@ -35,7 +28,7 @@ export class JwkService implements OnModuleInit, OnModuleDestroy {
 				error: (error: Error) => {
 					this.logger.error(
 						'CRITICAL ERROR: Unable to load JWKSet',
-						error.stack
+						ajaxErrorHandler(error)
 					);
 				}
 			});
