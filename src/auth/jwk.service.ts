@@ -1,6 +1,7 @@
 import {
 	HttpService,
 	Injectable,
+	Logger,
 	OnModuleDestroy,
 	OnModuleInit
 } from '@nestjs/common';
@@ -16,6 +17,8 @@ const jwkUrl = 'https://localhost:7003/jwk'; // TODO add to configuration
 
 @Injectable()
 export class JwkService implements OnModuleInit, OnModuleDestroy {
+	private readonly logger = new Logger(JwkService.name);
+
 	readonly key = new ReplaySubject<string>();
 	private subscription: Subscription;
 
@@ -27,7 +30,15 @@ export class JwkService implements OnModuleInit, OnModuleDestroy {
 			.pipe(
 				map((res: AxiosResponse<JwkSet>) => jwkToPem(res.data.keys[0]))
 			)
-			.subscribe(this.key);
+			.subscribe({
+				next: (key) => this.key.next(key),
+				error: (error: Error) => {
+					this.logger.error(
+						'CRITICAL ERROR: Unable to load JWKSet',
+						error.stack
+					);
+				}
+			});
 	}
 
 	onModuleDestroy(): void {
