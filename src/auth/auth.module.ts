@@ -7,7 +7,6 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { JwkService } from './jwk.service';
-import { Agent } from 'https';
 import { HttpModuleConfigService } from '../http/HttpModuleConfigService';
 
 @Module({
