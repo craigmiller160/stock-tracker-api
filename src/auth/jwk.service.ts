@@ -4,7 +4,7 @@ import {
 	OnModuleDestroy,
 	OnModuleInit
 } from '@nestjs/common';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { JwkSet } from './model/jwk';
 import jwkToPem from 'jwk-to-pem';
@@ -16,7 +16,7 @@ const jwkUrl = 'https://localhost:7003/jwk'; // TODO add to configuration
 
 @Injectable()
 export class JwkService implements OnModuleInit, OnModuleDestroy {
-	readonly key = new BehaviorSubject<string>('');
+	readonly key = new ReplaySubject<string>();
 	private subscription: Subscription;
 
 	constructor(private httpService: HttpService) {}

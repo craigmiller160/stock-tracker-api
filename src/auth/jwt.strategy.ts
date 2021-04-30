@@ -22,7 +22,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 				rawJwt: string,
 				done: doneFn
 			) => {
-				done(null, jwkService.key.getValue());
+				console.log('InCallback'); // TODO delete this
+				jwkService.key
+					.subscribe({
+						next: (value) => {
+							console.log('InNext', value); // TODO delete this
+							done(null, value);
+						},
+						error: (error) => {
+							console.log('InError', error); // TODO delete this
+							done(error);
+						}
+					})
+					.unsubscribe();
 			}
 		});
 	}
