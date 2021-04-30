@@ -9,6 +9,8 @@ import { JwkService } from './jwk.service';
 
 type doneFn = (err: any, secretOrKey?: string | Buffer) => void;
 
+// TODO validate that the client is correct
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
 	constructor(private readonly jwkService: JwkService) {
