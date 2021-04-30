@@ -4,6 +4,7 @@ import { User } from '../user/model/user';
 import { JwtService } from '@nestjs/jwt';
 import { Claims, TokenResponse } from './model/jwt';
 
+// Only leaving here for reference purposes
 @Injectable()
 export class AuthService {
 	constructor(
