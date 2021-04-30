@@ -22,10 +22,7 @@ import * as https from 'https';
 		}),
 		UserModule,
 		PassportModule,
-		JwtModule.register({
-			secret: jwtConstants.secret,
-			signOptions: { expiresIn: '60s' }
-		})
+		JwtModule.register({})
 	],
 	providers: [AuthService, LocalStrategy, JwtStrategy, JwkService],
 	controllers: [AuthController]
