@@ -3,7 +3,6 @@ export interface User {
 	userName: string;
 }
 
-// TODO if not needed, delete
 export interface FullUser extends User {
 	password: string;
 }
