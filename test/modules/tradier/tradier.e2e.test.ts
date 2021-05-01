@@ -3,6 +3,8 @@ import request from 'supertest';
 import quotes from './__data__/quotes.json';
 import { createTestingApp } from '../../testutils/e2e/createTestingApp';
 import { MockHttpService } from '../../testutils/mocks/MockHttpService';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 describe('TradierController (e2e)', () => {
 	let app: INestApplication;

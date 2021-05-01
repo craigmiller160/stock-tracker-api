@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpService } from '@nestjs/common';
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
 
 const createResponse = <T>(data: T): AxiosResponse<T> => ({
@@ -14,8 +14,13 @@ const createResponse = <T>(data: T): AxiosResponse<T> => ({
 export class MockHttpService extends HttpService {
 	private mockFn = jest.fn();
 
+	constructor(instance?: AxiosInstance) {
+        super(instance);
+        console.log('Creating'); // TODO delete this
+    }
+
 	mockResponse<T = any>(data: T): void {
-		this.mockFn.mockImplementationOnce(() => of(createResponse(data)));
+		this.mockFn.mockReturnValue(of(createResponse(data)));
 	}
 
 	expectToHaveBeenCalledWith(time: number, ...params: any[]): void {
