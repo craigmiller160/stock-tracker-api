@@ -22,6 +22,8 @@ describe('AuthController (e2e)', () => {
 	});
 
 	it('getUserDetails', () => {
-		throw new Error();
+		return request(app.getHttpServer())
+			.get('/auth/details')
+			.expect(200, 'TODO');
 	});
 });
