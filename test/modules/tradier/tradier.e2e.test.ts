@@ -5,6 +5,7 @@ import { createTestingApp } from '../../testutils/e2e/createTestingApp';
 import { MockHttpService } from '../../testutils/mocks/MockHttpService';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AppModule } from '../../../src/app.module';
 
 describe('TradierController (e2e)', () => {
 	let app: INestApplication;
@@ -14,6 +15,7 @@ describe('TradierController (e2e)', () => {
 	beforeEach(async () => {
 		({ app, signedToken, mockHttpService } = await createTestingApp());
 		await app.init();
+		console.log('Initialized'); // TODO delete this
 	});
 
 	it('GET /tradier/quote/:symbol', async () => {
