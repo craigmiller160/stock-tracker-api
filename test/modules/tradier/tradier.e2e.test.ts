@@ -8,7 +8,8 @@ import quotes from './__data__/quotes.json';
 import historyQuotes from './__data__/historyQuotes.json';
 import today from './__data__/today.json';
 import { format } from 'date-fns';
-import { AuthService } from '../../src/auth/auth.service';
+import { createTestingApp } from '../../testutils/e2e/createTestingApp';
+import { MockHttpService } from '../../testutils/mocks/MockHttpService';
 
 const createResponse = <T>(data: T): AxiosResponse<T> => ({
 	data,
@@ -20,21 +21,11 @@ const createResponse = <T>(data: T): AxiosResponse<T> => ({
 
 describe('TradierController (e2e)', () => {
 	let app: INestApplication;
-	let httpService: HttpService;
-	let token: string;
+	let mockHttpService: MockHttpService;
+	let signedToken: string;
 
 	beforeEach(async () => {
-		const moduleFixture: TestingModule = await Test.createTestingModule({
-			imports: [AppModule]
-		}).compile();
-
-		app = moduleFixture.createNestApplication();
-		httpService = app.get<HttpService>(HttpService);
-		const authService = app.get<AuthService>(AuthService);
-		token = authService.login({
-			userName: 'user',
-			userId: 1
-		}).access_token;
+		({ app, signedToken } = await createTestingApp());
 		await app.init();
 	});
 

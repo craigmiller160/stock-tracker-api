@@ -8,8 +8,9 @@ import {
 	MOCK_CLIENT_NAME,
 	MockConfigService
 } from '../mocks/MockConfigService';
-import { INestApplication } from '@nestjs/common';
+import { HttpService, INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { MockHttpService } from '../mocks/MockHttpService';
 
 const tokenKey = 'TokenKey';
 const token = {
@@ -20,6 +21,7 @@ const token = {
 interface TestingApp {
 	app: INestApplication;
 	signedToken: string;
+	mockHttpService: MockHttpService;
 }
 
 export const createTestingApp = async (): Promise<TestingApp> => {
@@ -30,6 +32,8 @@ export const createTestingApp = async (): Promise<TestingApp> => {
 		.useClass(MockJwkService)
 		.overrideProvider(ConfigService)
 		.useClass(MockConfigService)
+		.overrideProvider(HttpService)
+		.useClass(MockHttpService)
 		.compile();
 
 	const app: INestApplication = moduleFixture.createNestApplication();
@@ -42,8 +46,13 @@ export const createTestingApp = async (): Promise<TestingApp> => {
 		secret: tokenKey
 	});
 
+	const mockHttpService = app.get<HttpService>(
+		HttpService
+	) as MockHttpService;
+
 	return {
 		app,
-		signedToken
+		signedToken,
+		mockHttpService
 	};
 };
