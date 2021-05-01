@@ -1,12 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../../src/app.module';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, OnModuleInit } from '@nestjs/common';
 import request, { Response } from 'supertest';
 import atob from 'atob';
+import { JwkService } from '../../../src/modules/auth/jwk.service';
 
-interface AuthPayload {
-	userName: string;
-	password: string;
+class MockJwkService extends JwkService implements OnModuleInit {
+	onModuleInit(): void {
+		// Do nothing
+	}
 }
 
 describe('AuthController (e2e)', () => {
@@ -15,7 +17,10 @@ describe('AuthController (e2e)', () => {
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
 			imports: [AppModule]
-		}).compile();
+		})
+			.overrideProvider(JwkService)
+			.useClass(MockJwkService)
+			.compile();
 
 		app = moduleFixture.createNestApplication();
 		await app.init();

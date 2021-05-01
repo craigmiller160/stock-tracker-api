@@ -6,6 +6,7 @@ module.exports = {
     roots: [
         process.cwd()
     ],
+    testEnvironment: 'node',
     modulePaths: [
         path.resolve(process.cwd(), 'src')
     ],
