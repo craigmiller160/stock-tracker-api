@@ -1,7 +1,6 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Claims, TokenDetails } from './model/jwt';
-import { User } from '../user/model/user';
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { Request } from 'express';
 import { JwkService } from './jwk.service';
@@ -9,9 +8,7 @@ import { ajaxErrorHandler } from '../../http/ajaxErrorHandler';
 import { ConfigService } from '@nestjs/config';
 import { CLIENT_KEY, CLIENT_NAME } from '../../config/keys';
 
-type doneFn = (err: any, secretOrKey?: string | Buffer) => void;
-
-// TODO validate that the client is correct
+type doneFn = (err: Error, secretOrKey?: string | Buffer) => void;
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
