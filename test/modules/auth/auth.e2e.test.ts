@@ -5,13 +5,17 @@ import request from 'supertest';
 import { JwkService } from '../../../src/modules/auth/jwk.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { MockConfigService } from '../../testutils/mocks/MockConfigService';
+import {
+	MOCK_CLIENT_KEY,
+	MOCK_CLIENT_NAME,
+	MockConfigService
+} from '../../testutils/mocks/MockConfigService';
 import { MockJwkService } from '../../testutils/mocks/MockJwkService';
 
 const tokenKey = 'TokenKey';
 const token = {
-	clientKey: 'clientKey',
-	clientName: 'clientName'
+	clientKey: MOCK_CLIENT_KEY,
+	clientName: MOCK_CLIENT_NAME
 };
 
 describe('AuthController (e2e)', () => {
