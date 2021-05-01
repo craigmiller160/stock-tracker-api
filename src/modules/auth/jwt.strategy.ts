@@ -45,6 +45,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 		});
 	}
 
+	// TODO write unit tests for this
 	validate(payload: Claims): TokenDetails {
 		if (
 			this.configService.get<string>(CLIENT_KEY) !== payload.clientKey ||
