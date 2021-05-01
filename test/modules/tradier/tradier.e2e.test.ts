@@ -1,13 +1,6 @@
-import { HttpService, INestApplication } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from '../../../src/app.module';
+import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
-import { AxiosResponse } from 'axios';
-import { of } from 'rxjs';
 import quotes from './__data__/quotes.json';
-import historyQuotes from './__data__/historyQuotes.json';
-import today from './__data__/today.json';
-import { format } from 'date-fns';
 import { createTestingApp } from '../../testutils/e2e/createTestingApp';
 import { MockHttpService } from '../../testutils/mocks/MockHttpService';
 
@@ -22,7 +15,7 @@ describe('TradierController (e2e)', () => {
 	});
 
 	it('GET /tradier/quote/:symbol', async () => {
-		mockHttpService.mockResponse(quotes);;
+		mockHttpService.mockResponse(quotes);
 
 		await request(app.getHttpServer())
 			.get('/tradier/quote/AAPL')
