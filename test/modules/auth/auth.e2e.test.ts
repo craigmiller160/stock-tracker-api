@@ -46,7 +46,7 @@ describe('AuthController (e2e)', () => {
 	it('getUserDetails', () => {
 		return request(app.getHttpServer())
 			.get('/auth/details')
-			.
+			.set('Authorization', `Bearer ${signedToken}`)
 			.expect(200, 'TODO');
 	});
 });
