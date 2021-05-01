@@ -1,6 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosError } from 'axios';
-
-// TODO improve the types here
 
 const isAxiosError = (error: any): error is AxiosError => !!error.response;
 
