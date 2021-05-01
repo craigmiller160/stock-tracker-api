@@ -44,7 +44,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
 	// TODO write unit tests for this
 	validate(payload: Claims): TokenDetails {
-		console.log('Claims', payload); // TODO delete this
 		if (
 			this.configService.get<string>(CLIENT_KEY) !== payload.clientKey ||
 			this.configService.get<string>(CLIENT_NAME) !== payload.clientName

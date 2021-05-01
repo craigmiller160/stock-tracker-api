@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../../src/app.module';
 import { INestApplication, OnModuleInit } from '@nestjs/common';
-import request, { Response } from 'supertest';
-import atob from 'atob';
+import request from 'supertest';
 import { JwkService } from '../../../src/modules/auth/jwk.service';
 import { JwtService } from '@nestjs/jwt';
 
+// TODO make the token settings less tied to .env
 const tokenKey = 'TokenKey';
 const token = {
-	clientKey: 'clientKey',
-	clientName: 'clientName'
+	clientKey: '96fb73dc-ae88-4056-a349-6e7488f7f6c4',
+	clientName: 'stock-tracker-api'
 };
 
 class MockJwkService extends JwkService implements OnModuleInit {
