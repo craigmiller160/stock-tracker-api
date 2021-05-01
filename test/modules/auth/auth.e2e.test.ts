@@ -4,17 +4,36 @@ import { INestApplication, OnModuleInit } from '@nestjs/common';
 import request from 'supertest';
 import { JwkService } from '../../../src/modules/auth/jwk.service';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService, NoInferType } from '@nestjs/config';
+import { CLIENT_KEY, CLIENT_NAME } from '../../../src/config/keys';
 
-// TODO make the token settings less tied to .env
 const tokenKey = 'TokenKey';
 const token = {
-	clientKey: '96fb73dc-ae88-4056-a349-6e7488f7f6c4',
-	clientName: 'stock-tracker-api'
+	clientKey: 'clientKey',
+	clientName: 'clientName'
 };
 
 class MockJwkService extends JwkService implements OnModuleInit {
 	onModuleInit(): void {
 		// Do nothing
+	}
+}
+
+class MockConfigService extends ConfigService {
+	private config = {
+		[CLIENT_KEY]: 'clientKey',
+		[CLIENT_NAME]: 'clientName'
+	};
+
+	get<T = any>(
+		propertyPath: string,
+		defaultValue: NoInferType<T> = undefined
+	): T | undefined {
+		const value = this.config[propertyPath];
+		if (value) {
+			return value;
+		}
+		return defaultValue;
 	}
 }
 
@@ -28,6 +47,8 @@ describe('AuthController (e2e)', () => {
 		})
 			.overrideProvider(JwkService)
 			.useClass(MockJwkService)
+			.overrideProvider(ConfigService)
+			.useClass(MockConfigService)
 			.compile();
 
 		app = moduleFixture.createNestApplication();
