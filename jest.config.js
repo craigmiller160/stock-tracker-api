@@ -7,9 +7,9 @@ module.exports = {
         process.cwd()
     ],
     testEnvironment: 'node',
-    modulePaths: [
-        path.resolve(process.cwd(), 'src')
-    ],
+    // modulePaths: [
+    //     path.resolve(process.cwd(), 'src')
+    // ],
     testMatch: [
         path.resolve(process.cwd(), 'test/**/*.{test,Spec}.{js,jsx,ts,tsx}')
     ],
