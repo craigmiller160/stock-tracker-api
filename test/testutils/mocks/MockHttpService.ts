@@ -3,12 +3,6 @@ import { HttpService } from '@nestjs/common';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
 
-export interface MockRequest {
-	url: string;
-	data?: any;
-	config?: AxiosRequestConfig;
-}
-
 const createResponse = <T>(data: T): AxiosResponse<T> => ({
 	data,
 	headers: {},
@@ -20,15 +14,19 @@ const createResponse = <T>(data: T): AxiosResponse<T> => ({
 export class MockHttpService extends HttpService {
 	private mockFn = jest.fn();
 
-	mockAndValidateRequest<T = any>(req: MockRequest, data: T) {
+	mockResponse<T = any>(data: T): void {
 		this.mockFn.mockImplementationOnce(() => of(createResponse(data)));
 	}
 
-	reset() {
+	expectToHaveBeenCalledWith(time: number, ...params: any[]): void {
+		expect(this.mockFn).toHaveBeenNthCalledWith(time, params);
+	}
+
+	reset(): void {
 		this.mockFn.mockReset();
 	}
 
-	clear() {
+	clear(): void {
 		this.mockFn.mockClear();
 	}
 
