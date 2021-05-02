@@ -1,7 +1,6 @@
-import { Controller, Get, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Controller, Get } from '@nestjs/common';
 import { TokenDetails } from './model/jwt';
-import { TokenDetailsService } from './TokenDetailsService';
+import { TokenDetailsService } from './token-details.service';
 
 @Controller('/auth')
 export class AuthController {

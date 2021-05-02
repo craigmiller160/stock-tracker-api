@@ -6,7 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { JwkService } from './jwk.service';
 import { HttpModuleConfigService } from '../../http/HttpModuleConfigService';
-import { TokenDetailsService } from './TokenDetailsService';
+import { TokenDetailsService } from './token-details.service';
 
 @Module({
 	imports: [

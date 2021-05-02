@@ -1,5 +1,5 @@
 import { Inject, Injectable, Scope } from '@nestjs/common';
-import { request, Request } from 'express';
+import { Request } from 'express';
 import { REQUEST } from '@nestjs/core';
 import { TokenDetails } from './model/jwt';
 
