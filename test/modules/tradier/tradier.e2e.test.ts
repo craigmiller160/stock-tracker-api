@@ -1,11 +1,9 @@
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import quotes from './__data__/quotes.json';
+import historyQuotes from './__data__/historyQuotes.json';
 import { createTestingApp } from '../../testutils/e2e/createTestingApp';
 import { MockHttpService } from '../../testutils/mocks/MockHttpService';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { AppModule } from '../../../src/app.module';
 
 describe('TradierController (e2e)', () => {
 	let app: INestApplication;
@@ -24,7 +22,6 @@ describe('TradierController (e2e)', () => {
 			.set('Authorization', `Bearer ${signedToken}`)
 			.expect(200, quotes.quotes.quote);
 
-		// TODO the earlier error showed bearer undefined... figure this out, something might be screwed up
 		MockHttpService.expectToHaveBeenCalledWith(
 			1,
 			'/markets/quotes?symbols=AAPL',
@@ -33,19 +30,18 @@ describe('TradierController (e2e)', () => {
 	});
 
 	it('GET /tradier/quote/history/:symbol/:date', async () => {
-		// const spy = jest.spyOn(httpService, 'get');
-		// spy.mockImplementationOnce(() => of(createResponse(historyQuotes)));
-		//
-		// await request(app.getHttpServer())
-		// 	.get('/tradier/quote/history/AAPL/2021-04-27')
-		// 	.set('Authorization', `Bearer ${token}`)
-		// 	.expect(200, historyQuotes.history.day);
-		//
-		// expect(spy).toHaveBeenCalledWith(
-		// 	'/markets/history?symbol=AAPL&interval=monthly&start=2021-04-27&end=2021-04-27',
-		// 	expect.any(Object)
-		// );
-		throw new Error();
+		MockHttpService.mockResponse(historyQuotes);
+
+		await request(app.getHttpServer())
+			.get('/tradier/quote/history/AAPL/2021-04-27')
+			.set('Authorization', `Bearer ${signedToken}`)
+			.expect(200, historyQuotes.history.day);
+
+		MockHttpService.expectToHaveBeenCalledWith(
+			1,
+			'/markets/history?symbol=AAPL&interval=monthly&start=2021-04-27&end=2021-04-27',
+			expect.any(Object)
+		);
 	});
 
 	it('GET /tradier/today/:symbol', async () => {
