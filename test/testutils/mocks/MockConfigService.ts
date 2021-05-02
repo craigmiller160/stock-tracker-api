@@ -1,5 +1,11 @@
 import { ConfigService, NoInferType } from '@nestjs/config';
-import { AUTH_SERVER_HOST, CLIENT_KEY, CLIENT_NAME, TRADIER_API_KEY, TRADIER_BASE_URL } from '../../../src/config/keys';
+import {
+	AUTH_SERVER_HOST,
+	CLIENT_KEY,
+	CLIENT_NAME,
+	TRADIER_API_KEY,
+	TRADIER_BASE_URL
+} from '../../../src/config/keys';
 
 export const MOCK_CLIENT_KEY = 'clientKey';
 export const MOCK_CLIENT_NAME = 'clientName';
