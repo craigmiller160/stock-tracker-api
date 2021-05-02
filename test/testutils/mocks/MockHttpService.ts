@@ -12,7 +12,7 @@ const createResponse = <T>(data: T): AxiosResponse<T> => ({
 });
 
 export class MockHttpService extends HttpService {
-	private mockFn = jest.fn();
+	private static mockFn = jest.fn();
 
 	constructor(instance?: AxiosInstance) {
         super(instance);
@@ -20,25 +20,25 @@ export class MockHttpService extends HttpService {
     }
 
 	mockResponse<T = any>(data: T): void {
-		this.mockFn.mockReturnValue(of(createResponse(data)));
+		MockHttpService.mockFn.mockReturnValue(of(createResponse(data)));
 	}
 
 	expectToHaveBeenCalledWith(time: number, ...params: any[]): void {
-		expect(this.mockFn).toHaveBeenNthCalledWith(time, params);
+		expect(MockHttpService.mockFn).toHaveBeenNthCalledWith(time, params);
 	}
 
 	reset(): void {
-		this.mockFn.mockReset();
+		MockHttpService.mockFn.mockReset();
 	}
 
 	clear(): void {
-		this.mockFn.mockClear();
+		MockHttpService.mockFn.mockClear();
 	}
 
 	get<T = any>(
 		url: string,
 		config?: AxiosRequestConfig
 	): Observable<AxiosResponse<T>> {
-		return this.mockFn(url, config);
+		return MockHttpService.mockFn(url, config);
 	}
 }

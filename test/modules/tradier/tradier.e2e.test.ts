@@ -27,7 +27,7 @@ describe('TradierController (e2e)', () => {
 			.expect(200, quotes.quotes.quote);
 
 		mockHttpService.expectToHaveBeenCalledWith(
-			0,
+			1,
 			'/markets/quotes?symbols=AAPL',
 			expect.any(Object)
 		);
