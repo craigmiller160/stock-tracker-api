@@ -21,6 +21,7 @@ export interface TokenResponse {
 	access_token: string;
 }
 
+
 export interface TokenDetails {
 	lastName: string;
 	firstName: string;
