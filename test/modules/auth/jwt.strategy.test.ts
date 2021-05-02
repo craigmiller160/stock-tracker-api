@@ -7,6 +7,7 @@ import {
 	MockConfigService
 } from '../../testutils/mocks/MockConfigService';
 import { Claims, TokenDetails } from '../../../src/modules/auth/model/jwt';
+import { UnauthorizedException } from '@nestjs/common';
 
 jest.mock('../../../src/modules/auth/jwk.service');
 
@@ -31,10 +32,10 @@ const claims: Claims = {
 };
 
 const tokenDetails: TokenDetails = {
-    lastName: claims.lastName,
-    firstName: claims.firstName,
-    userEmail: claims.userEmail,
-    roles: claims.roles
+	lastName: claims.lastName,
+	firstName: claims.firstName,
+	userEmail: claims.userEmail,
+	roles: claims.roles
 };
 
 describe('jwt.strategy', () => {
@@ -51,11 +52,21 @@ describe('jwt.strategy', () => {
 		});
 
 		it('has invalid client key', () => {
-			throw new Error();
+			expect(() =>
+				jwtStrategy.validate({
+					...claims,
+					clientKey: 'abc'
+				})
+			).toThrow(new UnauthorizedException());
 		});
 
 		it('has invalid client name', () => {
-			throw new Error();
+			expect(() =>
+				jwtStrategy.validate({
+					...claims,
+					clientName: 'abc'
+				})
+			).toThrow(new UnauthorizedException());
 		});
 	});
 });
