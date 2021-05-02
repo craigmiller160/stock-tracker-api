@@ -1,12 +1,14 @@
 import { Controller, Get, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { TokenDetails } from './model/jwt';
+import { TokenDetailsService } from './TokenDetailsService';
 
 @Controller('/auth')
 export class AuthController {
-	// TODO try moving this user logic into a service
+	constructor(private readonly tokenDetailsService: TokenDetailsService) {}
+
 	@Get('/details')
-	getUserDetails(@Req() req: Request): TokenDetails {
-		return req.user as TokenDetails;
+	getUserDetails(): TokenDetails {
+		return this.tokenDetailsService.getTokenDetails();
 	}
 }
