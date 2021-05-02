@@ -11,19 +11,14 @@ const createResponse = <T>(data: T): AxiosResponse<T> => ({
 	statusText: 'OK'
 });
 
-// TODO need to reset this after every test
 export class MockHttpService extends HttpService {
 	private static mockFn = jest.fn();
 
-	constructor(instance?: AxiosInstance) {
-        super(instance);
-    }
-
-	mockResponse<T = any>(data: T): void {
+	static mockResponse<T = any>(data: T): void {
 		MockHttpService.mockFn.mockReturnValue(of(createResponse(data)));
 	}
 
-	expectToHaveBeenCalledWith(time: number, ...params: any[]): void {
+	static expectToHaveBeenCalledWith(time: number, ...params: any[]): void {
 		expect(MockHttpService.mockFn).toHaveBeenNthCalledWith(time, ...params);
 	}
 
@@ -42,3 +37,7 @@ export class MockHttpService extends HttpService {
 		return MockHttpService.mockFn(url, config);
 	}
 }
+
+beforeEach(() => {
+	MockHttpService.reset();
+});

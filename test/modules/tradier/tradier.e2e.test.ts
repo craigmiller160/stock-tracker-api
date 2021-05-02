@@ -9,16 +9,15 @@ import { AppModule } from '../../../src/app.module';
 
 describe('TradierController (e2e)', () => {
 	let app: INestApplication;
-	let mockHttpService: MockHttpService;
 	let signedToken: string;
 
 	beforeEach(async () => {
-		({ app, signedToken, mockHttpService } = await createTestingApp());
+		({ app, signedToken } = await createTestingApp());
 		await app.init();
 	});
 
 	it('GET /tradier/quote/:symbol', async () => {
-		mockHttpService.mockResponse(quotes);
+		MockHttpService.mockResponse(quotes);
 
 		await request(app.getHttpServer())
 			.get('/tradier/quote/AAPL')
@@ -26,7 +25,7 @@ describe('TradierController (e2e)', () => {
 			.expect(200, quotes.quotes.quote);
 
 		// TODO the earlier error showed bearer undefined... figure this out, something might be screwed up
-		mockHttpService.expectToHaveBeenCalledWith(
+		MockHttpService.expectToHaveBeenCalledWith(
 			1,
 			'/markets/quotes?symbols=AAPL',
 			expect.any(Object)

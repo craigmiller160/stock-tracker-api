@@ -21,7 +21,6 @@ const token = {
 interface TestingApp {
 	app: INestApplication;
 	signedToken: string;
-	mockHttpService: MockHttpService;
 }
 
 export const createTestingApp = async (): Promise<TestingApp> => {
@@ -46,13 +45,8 @@ export const createTestingApp = async (): Promise<TestingApp> => {
 		secret: tokenKey
 	});
 
-	const mockHttpService = app.get<HttpService>(
-		HttpService
-	) as MockHttpService;
-
 	return {
 		app,
-		signedToken,
-		mockHttpService
+		signedToken
 	};
 };
