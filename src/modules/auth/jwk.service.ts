@@ -32,7 +32,7 @@ export class JwkService implements OnModuleInit {
 		this.httpService
 			.get(`${this.configService.get<string>(AUTH_SERVER_HOST)}${jwkUri}`)
 			.pipe(
-				first(), // TODO compare with take(1) for error handling
+				first(),
 				map((res: AxiosResponse<JwkSet>) => jwkToPem(res.data.keys[0]))
 			)
 			.subscribe(this.key);
