@@ -7,9 +7,7 @@ import { JwkService } from './jwk.service';
 import { ajaxErrorHandler } from '../../http/ajaxErrorHandler';
 import { ConfigService } from '@nestjs/config';
 import { CLIENT_KEY, CLIENT_NAME } from '../../config/keys';
-import { catchError, first, map } from 'rxjs/operators';
-import { empty } from 'rxjs/internal/Observer';
-import { Observable, of, throwError } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 type doneFn = (err: Error, secretOrKey?: string | Buffer) => void;
 

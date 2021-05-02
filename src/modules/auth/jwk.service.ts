@@ -1,16 +1,9 @@
-import {
-	HttpService,
-	Injectable,
-	Logger,
-	OnModuleDestroy,
-	OnModuleInit
-} from '@nestjs/common';
+import { HttpService, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { JwkSet } from './model/jwk';
 import jwkToPem from 'jwk-to-pem';
 import { first, map } from 'rxjs/operators';
-import { ajaxErrorHandler } from '../../http/ajaxErrorHandler';
 import { ConfigService } from '@nestjs/config';
 import { AUTH_SERVER_HOST } from '../../config/keys';
 
