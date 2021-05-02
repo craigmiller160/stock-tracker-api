@@ -17,7 +17,7 @@ import { AUTH_SERVER_HOST } from '../../config/keys';
 const jwkUri = '/jwk';
 
 @Injectable()
-export class JwkService implements OnModuleInit, OnModuleDestroy {
+export class JwkService implements OnModuleInit {
 	private readonly logger = new Logger(JwkService.name);
 
 	readonly key = new ReplaySubject<string>();
@@ -28,30 +28,13 @@ export class JwkService implements OnModuleInit, OnModuleDestroy {
 		private configService: ConfigService
 	) {}
 
-	// TODO refactor this
 	onModuleInit(): void {
 		this.httpService
 			.get(`${this.configService.get<string>(AUTH_SERVER_HOST)}${jwkUri}`)
 			.pipe(
-				first(),
+				first(), // TODO compare with take(1) for error handling
 				map((res: AxiosResponse<JwkSet>) => jwkToPem(res.data.keys[0]))
 			)
 			.subscribe(this.key);
-		// .subscribe({
-		// 	next: (key) => this.key.next(key),
-		// 	error: (error: Error) => {
-		// 		this.logger.error(
-		// 			'CRITICAL ERROR: Unable to load JWKSet',
-		// 			ajaxErrorHandler(error)
-		// 		);
-		// 	}
-		// });
-	}
-
-	// TODO delete this
-	onModuleDestroy(): void {
-		if (this.subscription) {
-			this.subscription.unsubscribe();
-		}
 	}
 }

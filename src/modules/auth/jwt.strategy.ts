@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { CLIENT_KEY, CLIENT_NAME } from '../../config/keys';
 import { catchError, map } from 'rxjs/operators';
 import { empty } from 'rxjs/internal/Observer';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 type doneFn = (err: Error, secretOrKey?: string | Buffer) => void;
 
@@ -29,17 +29,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 				rawJwt: string,
 				done: doneFn
 			) => {
-				jwkService.key.pipe(
-					map((value: string) => done(null, value)),
-					catchError((error: Error) => {
+				jwkService.key.subscribe({
+					next: (value: string) => done(null, value),
+					error: (error: Error) => {
 						this.logger.error(
 							'Error getting JWK key',
 							ajaxErrorHandler(error)
 						);
 						done(error);
-						return of('Failed'); // TODO figure out something different
-					})
-				);
+					}
+				});
 			}
 		});
 	}
