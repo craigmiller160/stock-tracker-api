@@ -7,7 +7,7 @@ import { JwkService } from './jwk.service';
 import { ajaxErrorHandler } from '../../http/ajaxErrorHandler';
 import { ConfigService } from '@nestjs/config';
 import { CLIENT_KEY, CLIENT_NAME } from '../../config/keys';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, first, map } from 'rxjs/operators';
 import { empty } from 'rxjs/internal/Observer';
 import { Observable, of, throwError } from 'rxjs';
 
@@ -29,7 +29,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 				rawJwt: string,
 				done: doneFn
 			) => {
-				jwkService.key.subscribe({
+				jwkService.key.pipe(first()).subscribe({
 					next: (value: string) => done(null, value),
 					error: (error: Error) => {
 						this.logger.error(
