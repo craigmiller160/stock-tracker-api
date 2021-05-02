@@ -24,7 +24,7 @@ export class MockHttpService extends HttpService {
 	}
 
 	expectToHaveBeenCalledWith(time: number, ...params: any[]): void {
-		expect(MockHttpService.mockFn).toHaveBeenNthCalledWith(time, params);
+		expect(MockHttpService.mockFn).toHaveBeenNthCalledWith(time, ...params);
 	}
 
 	reset(): void {

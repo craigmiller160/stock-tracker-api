@@ -4,6 +4,7 @@ import { CLIENT_KEY, CLIENT_NAME, TRADIER_BASE_URL } from '../../../src/config/k
 export const MOCK_CLIENT_KEY = 'clientKey';
 export const MOCK_CLIENT_NAME = 'clientName';
 export const MOCK_TRADIER_BASE_URL = 'https://tradier.com';
+// TODO make sure all config values are mocked here
 
 export class MockConfigService extends ConfigService {
 	private config = {
