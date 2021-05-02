@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { JwkService } from './jwk.service';
 import { HttpModuleConfigService } from '../../http/HttpModuleConfigService';
+import { TokenDetailsService } from './token-details.service';
 
 @Module({
 	imports: [
@@ -16,7 +17,7 @@ import { HttpModuleConfigService } from '../../http/HttpModuleConfigService';
 		PassportModule,
 		JwtModule.register({})
 	],
-	providers: [JwtStrategy, JwkService],
+	providers: [JwtStrategy, JwkService, TokenDetailsService],
 	controllers: [AuthController]
 })
 export class AuthModule {}

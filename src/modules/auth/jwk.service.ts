@@ -22,6 +22,7 @@ export class JwkService implements OnModuleInit {
 	) {}
 
 	onModuleInit(): void {
+		this.logger.log('Loading the JWKSet');
 		this.httpService
 			.get(`${this.configService.get<string>(AUTH_SERVER_HOST)}${jwkUri}`)
 			.pipe(
