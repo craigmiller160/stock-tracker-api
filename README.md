@@ -13,7 +13,3 @@ Create a file, `.env.private`, in the root of this project, and add the API Key 
 ```
 TRADIER_API_KEY=#########
 ```
-
-## Testing
-
-All tests right now utilize the `yarn test:e2e` command. Need to clean this up in the future.
