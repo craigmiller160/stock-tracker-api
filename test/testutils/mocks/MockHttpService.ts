@@ -14,6 +14,10 @@ const createResponse = <T>(data: T): AxiosResponse<T> => ({
 export class MockHttpService extends HttpService {
 	private static mockFn = jest.fn();
 
+	constructor() {
+		super(null);
+	}
+
 	static mockResponse<T = any>(data: T): void {
 		MockHttpService.mockFn.mockReturnValue(of(createResponse(data)));
 	}

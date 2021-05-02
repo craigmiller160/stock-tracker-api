@@ -28,6 +28,7 @@ export class JwkService implements OnModuleInit, OnModuleDestroy {
 		private configService: ConfigService
 	) {}
 
+	// TODO refactor this
 	onModuleInit(): void {
 		this.subscription = this.httpService
 			.get(`${this.configService.get<string>(AUTH_SERVER_HOST)}${jwkUri}`)
