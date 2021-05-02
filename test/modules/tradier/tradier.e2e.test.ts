@@ -15,7 +15,6 @@ describe('TradierController (e2e)', () => {
 	beforeEach(async () => {
 		({ app, signedToken, mockHttpService } = await createTestingApp());
 		await app.init();
-		console.log('Initialized'); // TODO delete this
 	});
 
 	it('GET /tradier/quote/:symbol', async () => {
@@ -26,6 +25,7 @@ describe('TradierController (e2e)', () => {
 			.set('Authorization', `Bearer ${signedToken}`)
 			.expect(200, quotes.quotes.quote);
 
+		// TODO the earlier error showed bearer undefined... figure this out, something might be screwed up
 		mockHttpService.expectToHaveBeenCalledWith(
 			1,
 			'/markets/quotes?symbols=AAPL',

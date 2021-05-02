@@ -11,12 +11,12 @@ const createResponse = <T>(data: T): AxiosResponse<T> => ({
 	statusText: 'OK'
 });
 
+// TODO need to reset this after every test
 export class MockHttpService extends HttpService {
 	private static mockFn = jest.fn();
 
 	constructor(instance?: AxiosInstance) {
         super(instance);
-        console.log('Creating'); // TODO delete this
     }
 
 	mockResponse<T = any>(data: T): void {
@@ -27,11 +27,11 @@ export class MockHttpService extends HttpService {
 		expect(MockHttpService.mockFn).toHaveBeenNthCalledWith(time, ...params);
 	}
 
-	reset(): void {
+	static reset(): void {
 		MockHttpService.mockFn.mockReset();
 	}
 
-	clear(): void {
+	static clear(): void {
 		MockHttpService.mockFn.mockClear();
 	}
 
