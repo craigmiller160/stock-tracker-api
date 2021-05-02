@@ -2,7 +2,7 @@ import { HttpService, Injectable } from '@nestjs/common';
 import { AxiosRequestConfig } from 'axios';
 import { ConfigService } from '@nestjs/config';
 import { stringify } from 'qs';
-import { TRADIER_API_KEY, TRADIER_BASE_URL } from '../config/keys';
+import { TRADIER_API_KEY, TRADIER_BASE_URL } from '../../config/keys';
 import { Quote, QuotesWrapper } from './models/quotes';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';

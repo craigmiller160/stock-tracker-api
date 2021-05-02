@@ -1,2 +1,5 @@
 export const TRADIER_BASE_URL = 'TRADIER_BASE_URL';
 export const TRADIER_API_KEY = 'TRADIER_API_KEY';
+export const AUTH_SERVER_HOST = 'AUTH_SERVER_HOST';
+export const CLIENT_KEY = 'CLIENT_KEY';
+export const CLIENT_NAME = 'CLIENT_NAME';

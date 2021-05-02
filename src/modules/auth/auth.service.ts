@@ -1,9 +1,11 @@
+/* eslint-disable */
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { User } from '../user/model/user';
 import { JwtService } from '@nestjs/jwt';
 import { Claims, TokenResponse } from './model/jwt';
 
+// Only leaving here for reference purposes
 @Injectable()
 export class AuthService {
 	constructor(
@@ -22,12 +24,14 @@ export class AuthService {
 	}
 
 	login(user: User): TokenResponse {
-		const claims: Claims = {
-			userName: user.userName,
-			sub: user.userId
-		};
-		return {
-			access_token: this.jwtService.sign(claims)
-		};
+		// const claims: Partial<Claims> = {
+		// 	userName: user.userName,
+		// user.userId;
+		// sub: ''
+		// };
+		// return {
+		// 	access_token: this.jwtService.sign(claims)
+		// };
+		return null;
 	}
 }

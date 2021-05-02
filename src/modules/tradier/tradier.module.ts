@@ -1,12 +1,12 @@
 import { HttpModule, Module } from '@nestjs/common';
 import { TradierController } from './tradier.controller';
 import { TradierService } from './tradier.service';
+import { HttpModuleConfigService } from '../../http/HttpModuleConfigService';
 
 @Module({
 	imports: [
-		HttpModule.register({
-			timeout: 10000,
-			maxRedirects: 5
+		HttpModule.registerAsync({
+			useClass: HttpModuleConfigService
 		})
 	],
 	controllers: [TradierController],
