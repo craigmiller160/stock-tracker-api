@@ -1,21 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import fs from 'fs';
-import path from 'path';
-import { HttpsOptions } from '@nestjs/common/interfaces/external/https-options.interface';
-
-const keyPath = path.resolve(__dirname, 'cert', 'stock-tracker.key.pem');
-const certPath = path.resolve(__dirname, 'cert', 'stock-tracker.cert.pem');
-
-const httpsOptions: HttpsOptions = {
-	key: fs.readFileSync(keyPath),
-	cert: fs.readFileSync(certPath)
-};
+import { httpsOptions } from './tls';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import nocache from 'nocache';
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule, {
+	const app = await NestFactory.create<NestExpressApplication>(AppModule, {
 		httpsOptions
 	});
+	app.use(nocache());
+	app.disable('x-powered-by');
 	await app.listen(3000);
 }
 bootstrap();
