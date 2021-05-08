@@ -1,10 +1,12 @@
-import { HttpsOptions } from '@nestjs/common/interfaces/external/https-options.interface';
 import { constants } from 'crypto';
 import fs from 'fs';
 import path from 'path';
+import { HttpsOptions } from '@nestjs/common/interfaces/external/https-options.interface';
 
 const keyPath = path.resolve(__dirname, 'cert', 'stock-tracker.key.pem');
 const certPath = path.resolve(__dirname, 'cert', 'stock-tracker.cert.pem');
+
+// TODO don't forget about security headers
 
 const ciphers = [
 	'ECDHE-ECDSA-AES256-GCM-SHA384',
@@ -23,7 +25,7 @@ export const httpsOptions: HttpsOptions = {
 	key: fs.readFileSync(keyPath),
 	cert: fs.readFileSync(certPath),
 	ciphers: ciphers.join(';'),
-	secureProtocol:
+	secureOptions:
 		constants.SSL_OP_NO_TLSv1_1 |
 		constants.SSL_OP_NO_TLSv1 |
 		constants.SSL_OP_NO_SSLv3 |
