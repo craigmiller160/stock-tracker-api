@@ -6,8 +6,6 @@ import { HttpsOptions } from '@nestjs/common/interfaces/external/https-options.i
 const keyPath = path.resolve(__dirname, 'cert', 'stock-tracker.key.pem');
 const certPath = path.resolve(__dirname, 'cert', 'stock-tracker.cert.pem');
 
-// TODO don't forget about security headers
-
 const ciphers = [
 	'ECDHE-ECDSA-AES256-GCM-SHA384',
 	'ECDHE-RSA-AES256-GCM-SHA384',
