@@ -24,10 +24,10 @@ const ciphers = [
 export const httpsOptions: HttpsOptions = {
 	key: fs.readFileSync(keyPath),
 	cert: fs.readFileSync(certPath),
-	ciphers: ciphers.join(';'),
-	secureOptions:
-		constants.SSL_OP_NO_TLSv1_1 |
-		constants.SSL_OP_NO_TLSv1 |
-		constants.SSL_OP_NO_SSLv3 |
-		constants.SSL_OP_NO_SSLv2
+	ciphers: ciphers.join(';')
+	// secureOptions:
+	// 	constants.SSL_OP_NO_TLSv1_1 |
+	// 	constants.SSL_OP_NO_TLSv1 |
+	// 	constants.SSL_OP_NO_SSLv3 |
+	// 	constants.SSL_OP_NO_SSLv2
 };
