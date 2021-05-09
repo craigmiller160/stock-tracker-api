@@ -13,10 +13,11 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "es-lint-scripts ts",
     "test": "jest --config ./jest.config.js"
   },
   "dependencies": {
+    "@craigmiller160/es-lint-config": "file:.yalc/@craigmiller160/es-lint-config",
     "@nestjs/common": "^7.6.15",
     "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
