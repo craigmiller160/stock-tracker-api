@@ -17,7 +17,6 @@
     "test": "jest --config ./jest.config.js"
   },
   "dependencies": {
-    "@craigmiller160/es-lint-config": "file:.yalc/@craigmiller160/es-lint-config",
     "@nestjs/common": "^7.6.15",
     "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
@@ -38,6 +37,7 @@
     "rxjs": "^6.6.6"
   },
   "devDependencies": {
+    "@craigmiller160/es-lint-config": "^1.0.0",
     "@nestjs/cli": "^7.6.0",
     "@nestjs/schematics": "^7.3.0",
     "@nestjs/testing": "^7.6.15",
