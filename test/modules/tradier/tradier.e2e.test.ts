@@ -5,7 +5,7 @@ import historyQuotes from './__data__/historyQuotes.json';
 import today from './__data__/today.json';
 import { createTestingApp } from '../../testutils/e2e/createTestingApp';
 import { MockHttpService } from '../../testutils/mocks/MockHttpService';
-import { format } from 'date-fns';
+import format from 'date-fns/format/index';
 
 describe('TradierController (e2e)', () => {
 	let app: INestApplication;

@@ -6,7 +6,7 @@ import { TRADIER_API_KEY, TRADIER_BASE_URL } from '../../config/keys';
 import { Quote, QuotesWrapper } from './models/quotes';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { format } from 'date-fns';
+import format from 'date-fns/format/index';
 import { HistoryDay, HistoryWrapper } from './models/historyQuotes';
 import { SeriesWrapper, TodayData } from './models/todayTicker';
 
