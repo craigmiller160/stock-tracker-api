@@ -9,7 +9,8 @@ import { Response } from 'express';
 export class TradierController {
 	constructor(private tradierService: TradierService) {}
 
-	private sendResponse(value: any | undefined, res: Response) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	private sendResponse(value: any | undefined, res: Response): void {
 		if (value) {
 			res.status(200);
 			res.send(value);
@@ -20,8 +21,9 @@ export class TradierController {
 	}
 
 	@Get('/quote/:symbol')
-	getStockQuote(@Param('symbol') symbol: string, @Res() res: Response) {
-		this.tradierService.getQuote(symbol)
+	getStockQuote(@Param('symbol') symbol: string, @Res() res: Response): void {
+		this.tradierService
+			.getQuote(symbol)
 			.subscribe((quote) => this.sendResponse(quote, res));
 	}
 
