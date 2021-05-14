@@ -21,7 +21,7 @@ export class TradierService {
 		private readonly httpService: HttpService
 	) {}
 
-	getQuote(symbol: string): Observable<Quote> {
+	getQuote(symbol: string): Observable<Quote | undefined> {
 		const query = stringify({ symbols: symbol });
 		return this.httpService
 			.get<QuotesWrapper>(`/markets/quotes?${query}`, this.getConfig())

@@ -1,17 +1,28 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Res } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { Quote } from './models/quotes';
 import { TradierService } from './tradier.service';
 import { HistoryDay } from './models/historyQuotes';
 import { TodayData } from './models/todayTicker';
+import { Response } from 'express';
 
 @Controller('/tradier')
 export class TradierController {
 	constructor(private tradierService: TradierService) {}
 
+	private sendResponse(value: any | undefined, res: Response) {
+		if (value) {
+			res.status(200);
+			res.send(value);
+		} else {
+			res.status(204);
+			res.send(value);
+		}
+	}
+
 	@Get('/quote/:symbol')
-	getStockQuote(@Param('symbol') symbol: string): Observable<Quote> {
-		return this.tradierService.getQuote(symbol);
+	getStockQuote(@Param('symbol') symbol: string, @Res() res: Response) {
+		this.tradierService.getQuote(symbol)
+			.subscribe((quote) => this.sendResponse(quote, res));
 	}
 
 	@Get('/quote/history/:symbol/:date')
@@ -22,7 +33,6 @@ export class TradierController {
 		return this.tradierService.getHistoryQuote(symbol, date);
 	}
 
-	// @UseGuards(JwtAuthGuard)
 	@Get('/today/:symbol')
 	getStockTodayTicker(
 		@Param('symbol') symbol: string
