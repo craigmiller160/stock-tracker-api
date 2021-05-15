@@ -1,19 +1,37 @@
 import { Controller, Get, Param, Res } from '@nestjs/common';
 import { TradierService } from './tradier.service';
 import { Response } from 'express';
+import { first } from 'rxjs/operators';
+import { Observer } from 'rxjs';
+import { AxiosError } from 'axios';
 
 @Controller('/tradier')
 export class TradierController {
 	constructor(private tradierService: TradierService) {}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	private sendResponse(value: any | undefined, res: Response): void {
-		if (value) {
-			res.status(200);
-			res.send(value);
-		} else {
-			res.status(204);
-			res.send(value);
+	private isAxiosError(ex: Error): ex is AxiosError {
+		return (ex as any).response!!;
+	}
+
+	private sendResponse<T>(res: Response): Observer<T> {
+		return {
+			next: (value: T) => {
+				if (value) {
+					res.status(200);
+					res.send(value);
+				} else {
+					res.status(204);
+					res.send(value);
+				}
+			},
+			error: (ex: Error) => {
+				const message = this.isAxiosError(ex) && ex.response?.data ? ex.response?.data : ex.message;
+				res.status(500);
+				res.send({
+					message
+				});
+			},
+			complete: () => {}
 		}
 	}
 
@@ -21,7 +39,8 @@ export class TradierController {
 	getStockQuote(@Param('symbol') symbol: string, @Res() res: Response): void {
 		this.tradierService
 			.getQuote(symbol)
-			.subscribe((quote) => this.sendResponse(quote, res));
+			.pipe(first())
+			.subscribe(this.sendResponse(res));
 	}
 
 	@Get('/quote/history/:symbol/:date')
@@ -32,7 +51,8 @@ export class TradierController {
 	): void {
 		this.tradierService
 			.getHistoryQuote(symbol, date)
-			.subscribe((historyQuote) => this.sendResponse(historyQuote, res));
+			.pipe(first())
+			.subscribe(this.sendResponse(res));
 	}
 
 	@Get('/today/:symbol')
@@ -42,6 +62,7 @@ export class TradierController {
 	): void {
 		this.tradierService
 			.getTodayTicket(symbol)
-			.subscribe((today) => this.sendResponse(today, res));
+			.pipe(first())
+			.subscribe(this.sendResponse(res));
 	}
 }
