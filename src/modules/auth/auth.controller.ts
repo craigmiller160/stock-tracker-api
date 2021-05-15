@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import {Controller, Get, Post} from '@nestjs/common';
 import { TokenDetails } from './model/jwt';
 import { TokenDetailsService } from './token-details.service';
 
@@ -10,4 +10,20 @@ export class AuthController {
 	getUserDetails(): TokenDetails {
 		return this.tokenDetailsService.getTokenDetails();
 	}
+
+	@Post('/authcode/login')
+	login() {
+		// TODO finish this
+	}
+
+	@Get('/authcode/code')
+	code() {
+		// TODO finish this
+	}
+
+	@Get('/logout')
+	logout() {
+		// TODO finish this
+	}
 }
+
