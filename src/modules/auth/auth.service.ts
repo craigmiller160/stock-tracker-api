@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CLIENT_KEY } from '../../config/keys';
 import { AuthCodeLogin } from './model/AuthCodeLogin';
+import crypto from 'crypto';
 
 const AUTH_CODE_LOGIN_PATH = '/ui/login';
 
@@ -18,7 +19,7 @@ export class AuthService {
 			);
 		}
 
-		const state = ''; // TODO figure out how to generate this
+		const state = crypto.randomBytes(4).readUInt32BE(0).toString(32);
 		// TODO set it as the session
 
 		const clientKey = this.configService.get<string>(CLIENT_KEY);
