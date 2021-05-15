@@ -29,7 +29,7 @@ export interface Quote {
 }
 
 export interface Quotes {
-	quote: Quote;
+	quote: Quote | undefined;
 }
 
 export interface QuotesWrapper {
