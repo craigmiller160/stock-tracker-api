@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { CLIENT_KEY } from '../../config/keys';
+import {AUTH_CODE_REDIRECT_URI, AUTH_LOGIN_BASE_URI, CLIENT_KEY} from '../../config/keys';
 import { AuthCodeLogin } from './model/AuthCodeLogin';
 import crypto from 'crypto';
 
@@ -22,13 +22,13 @@ export class AuthService {
 		}
 
 		const state = crypto.randomBytes(4).readUInt32BE(0).toString(32);
-		session[STATE_KEY] = encodeURIComponent(state);
+		session[STATE_KEY] = state;
 
 		const clientKey = this.configService.get<string>(CLIENT_KEY);
-		const encodedState = ''; // TODO figure this out
+		const encodedState = encodeURIComponent(state);
 
-		const redirectUri = `${origin}`; // TODO need to add redirect uri
-		const host = `${origin}`; // TODO need to add authLoginBaseUri
+		const redirectUri = encodeURIComponent(`${origin}${this.configService.get<string>(AUTH_CODE_REDIRECT_URI)}`);
+		const host = `${origin}${this.configService.get<string>(AUTH_LOGIN_BASE_URI)}`;
 
 		const url = `${host}${AUTH_CODE_LOGIN_PATH}?response_type=code&client_id=${clientKey}&redirect_uri=${redirectUri}&state=${encodedState}`;
 		return {
