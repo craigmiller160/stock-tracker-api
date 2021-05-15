@@ -31,6 +31,10 @@ describe('TradierController (e2e)', () => {
 		);
 	});
 
+	it('GET /traider/quote/:symbol 204', async () => {
+		throw new Error();
+	});
+
 	it('GET /tradier/quote/history/:symbol/:date', async () => {
 		MockHttpService.mockResponse(historyQuotes);
 
@@ -44,6 +48,10 @@ describe('TradierController (e2e)', () => {
 			'/markets/history?symbol=AAPL&interval=monthly&start=2021-04-27&end=2021-04-27',
 			expect.any(Object)
 		);
+	});
+
+	it('GET /tradier/quote/history/:symbol/:date 204', async () => {
+		throw new Error();
 	});
 
 	it('GET /tradier/today/:symbol', async () => {
@@ -63,5 +71,9 @@ describe('TradierController (e2e)', () => {
 			`/markets/timesales?symbol=AAPL&interval=1min&start=${start}&end=${end}`,
 			expect.any(Object)
 		);
+	});
+
+	it('GET /tradier/today/:symbol 204', async () => {
+		throw new Error();
 	});
 });
