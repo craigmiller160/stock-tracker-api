@@ -1,6 +1,6 @@
 import { ConfigService, NoInferType } from '@nestjs/config';
 import {
-	AUTH_CODE_REDIRECT_URI,
+	AUTH_CODE_REDIRECT_URI, AUTH_CODE_WAIT_MINS,
 	AUTH_LOGIN_BASE_URI,
 	AUTH_SERVER_HOST,
 	CLIENT_KEY,
@@ -17,6 +17,7 @@ export const MOCK_AUTH_SERVER_HOST = 'https://authServerHost';
 export const MOCK_AUTH_CODE_REDIRECT_URI =
 	'/stock-tracker/api/oauth/authcode/code';
 export const MOCK_AUTH_LOGIN_BASE_URI = '/stock-tracker/oauth2';
+export const MOCK_AUTH_CODE_WAIT_MINS = '10';
 
 export class MockConfigService extends ConfigService {
 	private config = {
@@ -26,7 +27,8 @@ export class MockConfigService extends ConfigService {
 		[TRADIER_API_KEY]: MOCK_TRADIER_API_KEY,
 		[AUTH_SERVER_HOST]: MOCK_AUTH_SERVER_HOST,
 		[AUTH_CODE_REDIRECT_URI]: MOCK_AUTH_CODE_REDIRECT_URI,
-		[AUTH_LOGIN_BASE_URI]: MOCK_AUTH_LOGIN_BASE_URI
+		[AUTH_LOGIN_BASE_URI]: MOCK_AUTH_LOGIN_BASE_URI,
+		[AUTH_CODE_WAIT_MINS]: MOCK_AUTH_CODE_WAIT_MINS
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

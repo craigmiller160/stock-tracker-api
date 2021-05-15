@@ -30,6 +30,7 @@ export class AuthService {
 
 		const state = crypto.randomBytes(4).readUInt32BE(0).toString(32);
 		session[STATE_KEY] = state;
+		session[STATE_ORIGIN_KEY] = origin;
 
 		const clientKey = this.configService.get<string>(CLIENT_KEY);
 		const encodedState = encodeURIComponent(state);
