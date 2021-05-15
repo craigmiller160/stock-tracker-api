@@ -66,10 +66,6 @@ describe('TradierController (e2e)', () => {
 		);
 	});
 
-	it('GET /tradier/quote/history/:symbol/:date 204', async () => {
-		throw new Error();
-	});
-
 	it('GET /tradier/today/:symbol', async () => {
 		MockHttpService.mockResponse(today);
 
@@ -87,9 +83,5 @@ describe('TradierController (e2e)', () => {
 			`/markets/timesales?symbol=AAPL&interval=1min&start=${start}&end=${end}`,
 			expect.any(Object)
 		);
-	});
-
-	it('GET /tradier/today/:symbol 204', async () => {
-		throw new Error();
 	});
 });
