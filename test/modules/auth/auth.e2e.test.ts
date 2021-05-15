@@ -13,7 +13,7 @@ describe('AuthController (e2e)', () => {
 
 	it('getUserDetails', () => {
 		return request(app.getHttpServer())
-			.get('/auth/details')
+			.get('/oauth/user')
 			.set('Authorization', `Bearer ${signedToken}`)
 			.expect(200, 'TODO');
 	});
