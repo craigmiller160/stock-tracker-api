@@ -11,7 +11,8 @@ const AUTH_CODE_LOGIN_PATH = '/ui/login';
 export class AuthService {
 	constructor(private readonly configService: ConfigService) {}
 
-	login(origin: string | undefined): AuthCodeLogin {
+	login(origin: string | undefined, session: Record<string,any>): AuthCodeLogin {
+		console.log('Session', session); // TODO delete this
 		if (!origin) {
 			throw new HttpException(
 				'Missing origin header on request',

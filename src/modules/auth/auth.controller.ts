@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Headers } from '@nestjs/common';
+import {Controller, Get, Post, Headers, Session} from '@nestjs/common';
 import { TokenDetails } from './model/jwt';
 import { TokenDetailsService } from './token-details.service';
 import { AuthService } from './auth.service';
@@ -17,8 +17,8 @@ export class AuthController {
 	}
 
 	@Post('/authcode/login')
-	login(@Headers('origin') origin: string | undefined): AuthCodeLogin {
-		return this.authService.login(origin);
+	login(@Headers('origin') origin: string | undefined, @Session() session: Record<string, any>): AuthCodeLogin {
+		return this.authService.login(origin, session);
 	}
 
 	@Get('/authcode/code')
