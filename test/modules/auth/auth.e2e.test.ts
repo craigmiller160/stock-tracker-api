@@ -23,6 +23,10 @@ describe('AuthController (e2e)', () => {
 		throw new Error();
 	});
 
+	it('login without origin header', () => {
+		throw new Error();
+	});
+
 	it('code', () => {
 		throw new Error();
 	});

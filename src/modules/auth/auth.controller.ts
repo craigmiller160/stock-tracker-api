@@ -1,10 +1,15 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Headers } from '@nestjs/common';
 import { TokenDetails } from './model/jwt';
 import { TokenDetailsService } from './token-details.service';
+import { AuthService } from './auth.service';
+import { AuthCodeLogin } from './model/AuthCodeLogin';
 
 @Controller('/oauth')
 export class AuthController {
-	constructor(private readonly tokenDetailsService: TokenDetailsService) {}
+	constructor(
+		private readonly tokenDetailsService: TokenDetailsService,
+		private readonly authService: AuthService
+	) {}
 
 	@Get('/user')
 	getUserDetails(): TokenDetails {
@@ -12,8 +17,8 @@ export class AuthController {
 	}
 
 	@Post('/authcode/login')
-	login() {
-		// TODO finish this
+	login(@Headers('origin') origin: string | undefined): AuthCodeLogin {
+		return this.authService.login(origin);
 	}
 
 	@Get('/authcode/code')

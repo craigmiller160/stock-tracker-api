@@ -7,6 +7,7 @@ import { JwtStrategy } from './jwt.strategy';
 import { JwkService } from './jwk.service';
 import { HttpModuleConfigService } from '../../http/HttpModuleConfigService';
 import { TokenDetailsService } from './token-details.service';
+import { AuthService } from './auth.service';
 
 @Module({
 	imports: [
@@ -17,7 +18,7 @@ import { TokenDetailsService } from './token-details.service';
 		PassportModule,
 		JwtModule.register({})
 	],
-	providers: [JwtStrategy, JwkService, TokenDetailsService],
+	providers: [JwtStrategy, JwkService, TokenDetailsService, AuthService],
 	controllers: [AuthController]
 })
 export class AuthModule {}
