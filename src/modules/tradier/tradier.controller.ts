@@ -10,7 +10,8 @@ export class TradierController {
 	constructor(private tradierService: TradierService) {}
 
 	private isAxiosError(ex: Error): ex is AxiosError {
-		return (ex as any).response!!;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return !!(ex as any).response;
 	}
 
 	private sendResponse<T>(res: Response): Observer<T> {
@@ -25,14 +26,18 @@ export class TradierController {
 				}
 			},
 			error: (ex: Error) => {
-				const message = this.isAxiosError(ex) && ex.response?.data ? ex.response?.data : ex.message;
+				const message =
+					this.isAxiosError(ex) && ex.response?.data
+						? ex.response?.data
+						: ex.message;
 				res.status(500);
 				res.send({
 					message
 				});
 			},
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
 			complete: () => {}
-		}
+		};
 	}
 
 	@Get('/quote/:symbol')
