@@ -1,6 +1,7 @@
 import { ConfigService, NoInferType } from '@nestjs/config';
 import {
-	AUTH_CODE_REDIRECT_URI, AUTH_CODE_WAIT_MINS,
+	AUTH_CODE_REDIRECT_URI,
+	AUTH_CODE_WAIT_MINS,
 	AUTH_LOGIN_BASE_URI,
 	AUTH_SERVER_HOST,
 	CLIENT_KEY,
