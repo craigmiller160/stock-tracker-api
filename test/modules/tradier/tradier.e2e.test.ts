@@ -32,7 +32,23 @@ describe('TradierController (e2e)', () => {
 	});
 
 	it('GET /traider/quote/:symbol 204', async () => {
-		throw new Error();
+		MockHttpService.mockResponse({
+			...quotes,
+			quotes: {
+				...quotes.quotes,
+				quote: undefined
+			}
+		});
+		await request(app.getHttpServer())
+			.get('/tradier/quote/AAPL')
+			.set('Authorization', `Bearer ${signedToken}`)
+			.expect(204);
+
+		MockHttpService.expectToHaveBeenCalledWith(
+			1,
+			'/markets/quotes?symbols=AAPL',
+			expect.any(Object)
+		);
 	});
 
 	it('GET /tradier/quote/history/:symbol/:date', async () => {
