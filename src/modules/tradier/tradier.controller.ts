@@ -1,8 +1,5 @@
 import { Controller, Get, Param, Res } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { TradierService } from './tradier.service';
-import { HistoryDay } from './models/historyQuotes';
-import { TodayData } from './models/todayTicker';
 import { Response } from 'express';
 
 @Controller('/tradier')
@@ -30,15 +27,21 @@ export class TradierController {
 	@Get('/quote/history/:symbol/:date')
 	getStockHistoryQuote(
 		@Param('symbol') symbol: string,
-		@Param('date') date: string
-	): Observable<HistoryDay> {
-		return this.tradierService.getHistoryQuote(symbol, date);
+		@Param('date') date: string,
+		@Res() res: Response
+	): void {
+		this.tradierService
+			.getHistoryQuote(symbol, date)
+			.subscribe((historyQuote) => this.sendResponse(historyQuote, res));
 	}
 
 	@Get('/today/:symbol')
 	getStockTodayTicker(
-		@Param('symbol') symbol: string
-	): Observable<TodayData[]> {
-		return this.tradierService.getTodayTicket(symbol);
+		@Param('symbol') symbol: string,
+		@Res() res: Response
+	): void {
+		this.tradierService
+			.getTodayTicket(symbol)
+			.subscribe((today) => this.sendResponse(today, res));
 	}
 }
