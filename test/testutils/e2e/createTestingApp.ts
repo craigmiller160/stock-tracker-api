@@ -11,11 +11,13 @@ import {
 import { HttpService, INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { MockHttpService } from '../mocks/MockHttpService';
+import { MOCK_TOKEN_DETAILS } from '../mocks/MockTokenDetails';
 
 const tokenKey = 'TokenKey';
 const token = {
 	clientKey: MOCK_CLIENT_KEY,
-	clientName: MOCK_CLIENT_NAME
+	clientName: MOCK_CLIENT_NAME,
+	...MOCK_TOKEN_DETAILS
 };
 
 interface TestingApp {
