@@ -18,4 +18,16 @@ describe('AuthController (e2e)', () => {
 			.set('Authorization', `Bearer ${signedToken}`)
 			.expect(200, MOCK_TOKEN_DETAILS);
 	});
+
+	it('login', () => {
+		throw new Error();
+	});
+
+	it('code', () => {
+		throw new Error();
+	});
+
+	it('logout', () => {
+		throw new Error();
+	});
 });

@@ -1,4 +1,4 @@
-import {Controller, Get, Post} from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { TokenDetails } from './model/jwt';
 import { TokenDetailsService } from './token-details.service';
 
@@ -26,4 +26,3 @@ export class AuthController {
 		// TODO finish this
 	}
 }
-
