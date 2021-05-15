@@ -36,6 +36,18 @@ describe('AuthController (e2e)', () => {
 		throw new Error();
 	});
 
+	it('code with wrong state', () => {
+		throw new Error();
+	});
+
+	it('code with wrong origin', () => {
+		throw new Error();
+	});
+
+	it('code with expired state', () => {
+		throw new Error();
+	});
+
 	it('logout', () => {
 		throw new Error();
 	});
