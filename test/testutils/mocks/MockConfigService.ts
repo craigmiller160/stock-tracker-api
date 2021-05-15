@@ -1,6 +1,7 @@
 import { ConfigService, NoInferType } from '@nestjs/config';
 import {
-	AUTH_CODE_REDIRECT_URI, AUTH_LOGIN_BASE_URI,
+	AUTH_CODE_REDIRECT_URI,
+	AUTH_LOGIN_BASE_URI,
 	AUTH_SERVER_HOST,
 	CLIENT_KEY,
 	CLIENT_NAME,
@@ -13,7 +14,8 @@ export const MOCK_CLIENT_NAME = 'clientName';
 export const MOCK_TRADIER_BASE_URL = 'https://tradier.com';
 export const MOCK_TRADIER_API_KEY = 'tradierApiKey';
 export const MOCK_AUTH_SERVER_HOST = 'https://authServerHost';
-export const MOCK_AUTH_CODE_REDIRECT_URI = '/stock-tracker/api/oauth/authcode/code';
+export const MOCK_AUTH_CODE_REDIRECT_URI =
+	'/stock-tracker/api/oauth/authcode/code';
 export const MOCK_AUTH_LOGIN_BASE_URI = '/stock-tracker/oauth2';
 
 export class MockConfigService extends ConfigService {

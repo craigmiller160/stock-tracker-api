@@ -24,7 +24,12 @@ describe('AuthController (e2e)', () => {
 	});
 
 	it('login without origin header', () => {
-		throw new Error();
+		return request(app.getHttpServer())
+			.post('/oauth/authcode/login')
+			.expect(400, {
+				statusCode: 400,
+				message: 'Missing origin header on request'
+			});
 	});
 
 	it('code', () => {
