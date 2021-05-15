@@ -9,7 +9,6 @@ const STATE_KEY = 'state';
 const STATE_EXP_KEY = 'state-exp';
 const STATE_ORIGIN_KEY = 'state-origin';
 
-// Only leaving here for reference purposes
 @Injectable()
 export class AuthService {
 	constructor(private readonly configService: ConfigService) {}
