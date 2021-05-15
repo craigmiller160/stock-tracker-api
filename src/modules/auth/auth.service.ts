@@ -5,6 +5,9 @@ import { AuthCodeLogin } from './model/AuthCodeLogin';
 import crypto from 'crypto';
 
 const AUTH_CODE_LOGIN_PATH = '/ui/login';
+const STATE_KEY = 'state';
+const STATE_EXP_KEY = 'state-exp';
+const STATE_ORIGIN_KEY = 'state-origin';
 
 // Only leaving here for reference purposes
 @Injectable()
@@ -12,7 +15,6 @@ export class AuthService {
 	constructor(private readonly configService: ConfigService) {}
 
 	login(origin: string | undefined, session: Record<string,any>): AuthCodeLogin {
-		console.log('Session', session); // TODO delete this
 		if (!origin) {
 			throw new HttpException(
 				'Missing origin header on request',
@@ -21,7 +23,7 @@ export class AuthService {
 		}
 
 		const state = crypto.randomBytes(4).readUInt32BE(0).toString(32);
-		// TODO set it as the session
+		session[STATE_KEY] = encodeURIComponent(state);
 
 		const clientKey = this.configService.get<string>(CLIENT_KEY);
 		const encodedState = ''; // TODO figure this out
