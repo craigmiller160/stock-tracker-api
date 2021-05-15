@@ -20,7 +20,12 @@ describe('AuthController (e2e)', () => {
 	});
 
 	it('login', () => {
-		throw new Error();
+		return request(app.getHttpServer())
+			.post('/oauth/authcode/login')
+			.set('Origin', 'https://localhost:3000')
+			.expect(200, {
+				url: ''
+			});
 	});
 
 	it('login without origin header', () => {
